@@ -14,11 +14,6 @@ from mlgb.utils import check_filepath
 def train_and_evaluate(model, optimizer, loss_fn, x_train, y_train, x_test, y_test,
                        epochs=10, train_batch_size=32, test_batch_size=32, valid_ratio=0.15):
 
-    # must init parameters by build() like tf at first run:
-    _ = model(x_test)  # shape requires: any batch_size > 1, other shape must be same as x_train and x_test.
-    for name, p in model.named_parameters():
-        print(name, list(p.shape), sep='\t\t')
-
     two_inputs_models = ['PLM', 'GRU4Rec', 'Caser', 'SASRec', 'BERT4Rec', 'BST', 'DIN', 'DIEN', 'DSIN']
 
     train_batch_num = int(len(y_train) // train_batch_size)  # drop_last=True
@@ -161,6 +156,11 @@ if __name__ == '__main__':
             model_l2=0.000001,
         )
         print(model, end='\n\n')
+
+        # must init parameters by build() like tf at first run:
+        _ = model(x_test)  # shape requires: any batch_size > 1, other shape must be same as x_train and x_test.
+        for name, p in model.named_parameters():
+            print(name, list(p.shape), sep='\t\t')
 
         optimizer = torch.optim.NAdam(model.parameters(), lr=1e-3, weight_decay=0.0)  # model_l2 vs weight_decay
         loss_fn = torch.nn.BCELoss()
