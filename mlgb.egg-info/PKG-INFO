@@ -1,3 +1,40 @@
+Metadata-Version: 2.1
+Name: mlgb
+Version: 0.0.2
+Summary: MLGB is a library that includes many models of CTR Prediction & Recommender System by TensorFlow & PyTorch.
+Home-page: https://github.com/uliontse/mlgb
+Author: UlionTse
+Author-email: uliontse@outlook.com
+License: Apache-2.0
+Project-URL: Source, https://github.com/UlionTse/mlgb
+Project-URL: Changelog, https://github.com/UlionTse/mlgb/blob/main/change_log.txt
+Project-URL: Documentation, https://github.com/UlionTse/mlgb/blob/main/README.md
+Keywords: Machine Learning,Deep Learning,CTR Prediction,Recommender System
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.23.0
+Requires-Dist: pandas>=1.5.0
+Requires-Dist: scikit-learn>=1.3.0
+Requires-Dist: torch>=2.1.0
+Requires-Dist: tensorflow>=2.10.0
+Provides-Extra: pypi
+Requires-Dist: build>=0.10.0; extra == "pypi"
+Requires-Dist: twine>=4.0.2; extra == "pypi"
+
 <p align="center">
   <img src="https://github.com/UlionTse/mlgb/blob/main/docs/mlgb_logo.png" width="200"/>
 </p>
