@@ -44,7 +44,7 @@ class SimpleAttentionLayer(torch.nn.Module):
 
         self.softmax_axis = softmax_axis
         self.softmax_pre_temperature_ratio = softmax_pre_temperature_ratio
-        self.mask_fn = MaskLayer(att_if_mask=softmax_if_mask)
+        self.mask_fn = MaskLayer(att_if_mask=softmax_if_mask, device=device)
         self.built = False
         self.device = torch.device(device=device)
         self.to(device=self.device)
@@ -185,7 +185,7 @@ class TransformerFeedForwardNetworkLayer(torch.nn.Module):
                 raise MLGBError
 
             _, f, e = x.shape
-            self.ffn_weight_list = torch.nn.ModuleList([
+            self.ffn_weight_list = [
                 self.initializer_fn(torch.nn.parameter.Parameter(
                     data=torch.empty(
                         size=[f, e],
@@ -194,8 +194,8 @@ class TransformerFeedForwardNetworkLayer(torch.nn.Module):
                     requires_grad=True,
                 ))
                 for _ in range(2)
-            ])
-            self.ffn_bias_list = torch.nn.ModuleList([
+            ]
+            self.ffn_bias_list = [
                 self.initializer_zeros_fn(torch.nn.parameter.Parameter(
                     data=torch.empty(
                         size=[f, 1],
@@ -204,7 +204,7 @@ class TransformerFeedForwardNetworkLayer(torch.nn.Module):
                     requires_grad=True,
                 ))
                 for _ in range(2)
-            ])
+            ]
             self.built = True
         return
 

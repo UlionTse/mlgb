@@ -14,8 +14,6 @@ from mlgb.utils import check_filepath
 def train_and_evaluate(model, optimizer, loss_fn, x_train, y_train, x_test, y_test,
                        epochs=10, train_batch_size=32, test_batch_size=32, valid_ratio=0.15):
 
-    two_inputs_models = ['PLM', 'GRU4Rec', 'Caser', 'SASRec', 'BERT4Rec', 'BST', 'DIN', 'DIEN', 'DSIN']
-
     train_batch_num = int(len(y_train) // train_batch_size)  # drop_last=True
     test_batch_num = int(len(y_test) // test_batch_size)  # drop_last=True
 
@@ -110,6 +108,8 @@ if __name__ == '__main__':
     device = 'cuda'
     seed = 2020
 
+    two_inputs_models = ['PLM', 'GRU4Rec', 'Caser', 'SASRec', 'BERT4Rec', 'BST', 'DIN', 'DIEN', 'DSIN']
+
     data = get_binary_label_data(
         n_samples=int(1e3),
         negative_class_weight=0.9,
@@ -125,7 +125,7 @@ if __name__ == '__main__':
         seed=seed,
     )
 
-    for i, model_name in enumerate(ranking_models):
+    for i, model_name in enumerate(ranking_models[41:]):
         print(i, model_name, end='\n\n')
 
         # path of save_model:
@@ -137,8 +137,8 @@ if __name__ == '__main__':
         check_filepath(tmp_dir, model_dir, log_dir, save_model_dir,)
 
         # get_data:
-        feature_names, (x_train, y_train), (x_test, y_test) = plm_data if model_name in ('PLM', 'MLR') else data
-        if model_name in ('PLM', 'MLR'):
+        feature_names, (x_train, y_train), (x_test, y_test) = plm_data if model_name in two_inputs_models else data
+        if model_name in two_inputs_models:
             print(f'features: {[[len(names) for names in group] for group in feature_names]}', end='\n\n')
         else:
             print(f'features: {[len(names) for names in feature_names]}', end='\n\n')
@@ -158,7 +158,7 @@ if __name__ == '__main__':
         print(model, end='\n\n')
 
         # must init parameters by build() like tf at first run:
-        _ = model(x_test)  # shape requires: any batch_size > 1, other shape must be same as x_train and x_test.
+        _ = model(x_test)  # shape requires: any batch_size, other shape must be same as x_train and x_test.
         for name, p in model.named_parameters():
             print(name, list(p.shape), sep='\t\t')
 

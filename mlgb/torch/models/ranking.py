@@ -4997,7 +4997,7 @@ class DSIN(torch.nn.Module):
                  bias_initializer='zeros',
                  trm_mha_head_num=4, trm_mha_head_dim=32, trm_mha_if_mask=True, trm_mha_initializer=None,
                  trm_if_ffn=True, trm_ffn_activation='gelu', trm_ffn_initializer=None, trm_residual_dropout=0.0,
-                 gru_bi_mode='Frontward+Backward', gru_hidden_units=(64, 32), gru_dropout=0.0,
+                 gru_bi_mode='Frontward,Backward', gru_hidden_units=(64, 32), gru_dropout=0.0,
                  dnn_hidden_units=(64, 32), dnn_activation='relu', dnn_dropout=0.0,
                  dnn_if_bn=False, dnn_if_ln=False,
                  ):
@@ -5048,7 +5048,7 @@ class DSIN(torch.nn.Module):
             :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
             :param trm_residual_dropout: float, default 0.0.
             :param gru_bi_mode: str, default 'Frontward+Backward'. Union['Frontward', 'Backward', 'Frontward+Backward',
-                            'Frontward-Backward', 'Frontward*Backward']
+                            'Frontward-Backward', 'Frontward*Backward', 'Frontward,Backward']
             :param gru_hidden_units: Tuple[int], default (64, 32).
             :param gru_dropout: float, default 0.0.
             :param dnn_hidden_units: Tuple[int], default (64, 32).

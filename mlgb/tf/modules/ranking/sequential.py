@@ -210,7 +210,7 @@ class ConvolutionalSequenceEmbeddingRecommendationLayer(tf.keras.layers.Layer):
         # PointWise(not ListWise) by Add&LabelAttention.
         x_user_fea, x_user_seq, x_item_tgt = inputs
 
-        x_user_seq = tf.expand_dims(x_user_seq, axis=2)
+        x_user_seq = tf.expand_dims(x_user_seq, axis=3)
         x_h_seq = self.h_cnn_fn(x_user_seq)  # HorizontalConvolution
         x_h_seq = self.flatten_axes_fn_list[0](x_h_seq)
         x_v_seq = self.v_cnn_fn(x_user_seq)  # VerticalConvolution
@@ -514,7 +514,7 @@ class DeepSessionInterestNetworkLayer(tf.keras.layers.Layer):
                  trm_mha_if_mask=True, trm_mha_l2=0.0, trm_mha_initializer=None,
                  trm_if_ffn=True, trm_ffn_activation='gelu', trm_ffn_l2=0.0, trm_ffn_initializer=None,
                  trm_residual_dropout=0.0,
-                 gru_bi_mode='Frontward+Backward',
+                 gru_bi_mode='Frontward,Backward',
                  gru_hidden_units=(64, 32), gru_activation='tanh', gru_dropout=0.0, gru_l2=0.0, gru_initializer=None,
                  gru_rct_activation='sigmoid', gru_rct_dropout=0.0, gru_rct_l2=0.0, gru_rct_initializer='orthogonal',
                  gru_reset_after=True, gru_unroll=False,
@@ -552,7 +552,7 @@ class DeepSessionInterestNetworkLayer(tf.keras.layers.Layer):
             trm_residual_dropout=trm_residual_dropout,
             seed=seed,
         )
-        self.gru_fn = BiGatedRecurrentUnitLayer(
+        self.bi_gru_fn = BiGatedRecurrentUnitLayer(
             gru_bi_mode=gru_bi_mode,
             gru_hidden_units=gru_hidden_units,
             gru_activation=gru_activation,
@@ -609,11 +609,11 @@ class DeepSessionInterestNetworkLayer(tf.keras.layers.Layer):
         x_user_seq = self.bias_fn(x_user_seq)
 
         x_trm_seq = self.trm_fn([x_user_seq, x_user_seq])
-        x_gru_seq = self.gru_fn(x_trm_seq)
+        x_gru_seq = self.bi_gru_fn(x_trm_seq)
 
         x_q = tf.reduce_sum(x_item_tgt, axis=1, keepdims=False)
         x_trm_k = tf.reduce_sum(x_trm_seq, axis=1, keepdims=False)
-        x_gru_k = x_gru_seq
+        x_gru_k = tf.reduce_sum(x_gru_seq, axis=1, keepdims=False)
         x_trm_seq = self.label_attention_fn_list[0]([x_q, x_trm_k])
         x_gru_seq = self.label_attention_fn_list[1]([x_q, x_gru_k])
 

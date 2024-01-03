@@ -38,7 +38,7 @@ import torch
 InputsModeList = ['Inputs:feature', 'Inputs:sequential']
 PoolModeList = ['Pooling:max', 'Pooling:average', 'Pooling:sum']
 MVPoolModeList = ['Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
-BiGRUModeList = ['Frontward', 'Backward', 'Frontward+Backward', 'Frontward-Backward', 'Frontward*Backward']
+BiGRUModeList = ['Frontward', 'Backward', 'Frontward+Backward', 'Frontward-Backward', 'Frontward*Backward', 'Frontward,Backward']
 SeqRecPointwiseModeList = ['Add', 'LabelAttention', 'Add&LabelAttention']
 
 EDCNModeList = ['EDCN:pointwise_addition', 'EDCN:hadamard_product', 'EDCN:concatenation', 'EDCN:attention_pooling']

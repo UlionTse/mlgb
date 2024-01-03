@@ -164,9 +164,9 @@ class ConvolutionalSequenceEmbeddingRecommendationLayer(torch.nn.Module):
             for _ in range(3 if self.seq_rec_pointwise_mode in ('Add', 'Add&LabelAttention') else 2)
         ])
         self.flatten_axes_fn_list = torch.nn.ModuleList([
-            FlattenAxesLayer(axes=(1, 3), device=device)
+            FlattenAxesLayer(axes=(1, 2), device=device)
             for _ in range(2)
-        ])
+        ])  # torch: channels_first
         self.built = False
         self.device = torch.device(device=device)
         self.to(device=self.device)
@@ -178,7 +178,7 @@ class ConvolutionalSequenceEmbeddingRecommendationLayer(torch.nn.Module):
             if not (x[0].ndim == x[1].ndim == x[2].ndim == 3):
                 raise MLGBError
 
-            self.embed_dim = x.shape[0][2]
+            self.embed_dim = x[0].shape[2]
 
             self.h_cnn_fn = ConvolutionalNeuralNetworkLayer(
                 cnn_conv_mode='Conv2D',
@@ -209,7 +209,7 @@ class ConvolutionalSequenceEmbeddingRecommendationLayer(torch.nn.Module):
         x = [(t.to(device=self.device) if t.device.type != self.device.type else t) for t in x]
         x_user_fea, x_user_seq, x_item_tgt = x
 
-        x_user_seq = torch.unsqueeze(x_user_seq, dim=2)
+        x_user_seq = torch.unsqueeze(x_user_seq, dim=1)  # torch: channels_first
         x_h_seq = self.h_cnn_fn(x_user_seq)  # HorizontalConvolution
         x_h_seq = self.flatten_axes_fn_list[0](x_h_seq)
         x_v_seq = self.v_cnn_fn(x_user_seq)  # VerticalConvolution
@@ -484,7 +484,7 @@ class DeepSessionInterestNetworkLayer(torch.nn.Module):
                  bias_initializer='zeros',
                  trm_mha_head_num=4, trm_mha_head_dim=32, trm_mha_if_mask=True, trm_mha_initializer=None,
                  trm_if_ffn=True, trm_ffn_activation='gelu', trm_ffn_initializer=None, trm_residual_dropout=0.0,
-                 gru_bi_mode='Frontward+Backward', gru_hidden_units=(64, 32), gru_dropout=0.0,
+                 gru_bi_mode='Frontward,Backward', gru_hidden_units=(64, 32), gru_dropout=0.0,
                  dnn_hidden_units=(64, 32), dnn_activation='relu', dnn_dropout=0.0, dnn_if_bn=False, dnn_if_ln=False,
                  device='cpu'):
         super().__init__()
@@ -515,7 +515,7 @@ class DeepSessionInterestNetworkLayer(torch.nn.Module):
             trm_residual_dropout=trm_residual_dropout,
             device=device,
         )
-        self.gru_fn = BiGatedRecurrentUnitLayer(
+        self.bi_gru_fn = BiGatedRecurrentUnitLayer(
             gru_bi_mode=gru_bi_mode,
             gru_hidden_units=gru_hidden_units,
             gru_dropout=gru_dropout,
@@ -566,11 +566,11 @@ class DeepSessionInterestNetworkLayer(torch.nn.Module):
         x_user_seq = self.bias_fn(x_user_seq)
 
         x_trm_seq = self.trm_fn([x_user_seq, x_user_seq])
-        x_gru_seq = self.gru_fn(x_trm_seq)
+        x_gru_seq = self.bi_gru_fn(x_trm_seq)
 
         x_q = torch.sum(x_item_tgt, dim=1, keepdim=False)
         x_trm_k = torch.sum(x_trm_seq, dim=1, keepdim=False)
-        x_gru_k = x_gru_seq
+        x_gru_k = torch.sum(x_gru_seq, dim=1, keepdim=False)
         x_trm_seq = self.label_attention_fn_list[0]([x_q, x_trm_k])
         x_gru_seq = self.label_attention_fn_list[1]([x_q, x_gru_k])
 

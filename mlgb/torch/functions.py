@@ -541,6 +541,7 @@ class BiasEncoding(torch.nn.Module):
         return
 
     def forward(self, x):
+        self.build(x)
         x = x.to(device=self.device) if x.device.type != self.device.type else x
 
         if self.if_bias:

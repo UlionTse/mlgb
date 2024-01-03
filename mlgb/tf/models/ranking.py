@@ -5360,7 +5360,7 @@ class DSIN(tf.keras.Model):
                  trm_mha_if_mask=True, trm_mha_l2=0.0, trm_mha_initializer=None,
                  trm_if_ffn=True, trm_ffn_activation='gelu', trm_ffn_l2=0.0, trm_ffn_initializer=None,
                  trm_residual_dropout=0.0,
-                 gru_bi_mode='Frontward+Backward',
+                 gru_bi_mode='Frontward,Backward',
                  gru_hidden_units=(64, 32), gru_activation='tanh', gru_dropout=0.0, gru_l2=0.0, gru_initializer=None,
                  gru_rct_activation='sigmoid', gru_rct_dropout=0.0, gru_rct_l2=0.0, gru_rct_initializer='orthogonal',
                  gru_reset_after=True, gru_unroll=False,
@@ -5415,8 +5415,8 @@ class DSIN(tf.keras.Model):
             :param trm_ffn_l2: float, default 0.0.
             :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
             :param trm_residual_dropout: float, default 0.0.
-            :param gru_bi_mode: str, default 'Frontward+Backward'. Union['Frontward', 'Backward', 'Frontward+Backward',
-                            'Frontward-Backward', 'Frontward*Backward']
+            :param gru_bi_mode: str, default 'Frontward,Backward'. Union['Frontward', 'Backward', 'Frontward+Backward',
+                            'Frontward-Backward', 'Frontward*Backward', 'Frontward,Backward']
             :param gru_hidden_units: Tuple[int], default (64, 32).
             :param gru_activation: Optional[str], default 'tanh'.
             :param gru_dropout: float, default 0.0.

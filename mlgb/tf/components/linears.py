@@ -754,9 +754,12 @@ class BiGatedRecurrentUnitLayer(tf.keras.layers.Layer):
             x = self.gru_fn_list[0](x) - self.gru_fn_list[1](x[:, ::-1, :])
         elif self.gru_bi_mode == 'Frontward*Backward':
             x = self.gru_fn_list[0](x) * self.gru_fn_list[1](x[:, ::-1, :])
+        elif self.gru_bi_mode == 'Frontward,Backward':
+            x = tf.stack([self.gru_fn_list[0](x), self.gru_fn_list[1](x[:, ::-1, :])], axis=1)
         else:
             raise MLGBError
 
+        x = x if self.gru_bi_mode == 'Frontward,Backward' else tf.expand_dims(x, axis=1)
         return x
 
 

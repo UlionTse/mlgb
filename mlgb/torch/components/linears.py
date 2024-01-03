@@ -590,12 +590,13 @@ class BaseGatedRecurrentUnitLayer(torch.nn.Module):
 
             self.base_gru_fn = torch.nn.GRU(
                 batch_first=True,
-                input_size=x.shape[1],  # seq_len
+                input_size=x.shape[2],  # embed_dim
                 hidden_size=self.gru_hidden_unit,
                 dropout=self.gru_dropout,
                 bias=self.gru_if_bias,
                 bidirectional=False,
                 num_layers=1,
+                device=self.device,
             )
             self.built = True
         return
@@ -604,7 +605,7 @@ class BaseGatedRecurrentUnitLayer(torch.nn.Module):
         self.build(x)
         x = x.to(device=self.device) if x.device.type != self.device.type else x
 
-        x = self.base_gru_fn(x)
+        x = self.base_gru_fn(x)[0]
         return x
 
 
@@ -676,20 +677,24 @@ class BiGatedRecurrentUnitLayer(torch.nn.Module):
     def forward(self, x):
         self.build(x)
         x = x.to(device=self.device) if x.device.type != self.device.type else x
+        x_reverse = torch.flip(x, dims=[1])  # x[:, ::-1, :]
 
         if self.gru_bi_mode == 'Frontward':
             x = self.gru_fn_list[0](x)
         elif self.gru_bi_mode == 'Backward':
             x = self.gru_fn_list[0](x[:, ::-1, :])
         elif self.gru_bi_mode == 'Frontward+Backward':
-            x = self.gru_fn_list[0](x) + self.gru_fn_list[1](x[:, ::-1, :])
+            x = self.gru_fn_list[0](x) + self.gru_fn_list[1](x_reverse)
         elif self.gru_bi_mode == 'Frontward-Backward':
-            x = self.gru_fn_list[0](x) - self.gru_fn_list[1](x[:, ::-1, :])
+            x = self.gru_fn_list[0](x) - self.gru_fn_list[1](x_reverse)
         elif self.gru_bi_mode == 'Frontward*Backward':
-            x = self.gru_fn_list[0](x) * self.gru_fn_list[1](x[:, ::-1, :])
+            x = self.gru_fn_list[0](x) * self.gru_fn_list[1](x_reverse)
+        elif self.gru_bi_mode == 'Frontward,Backward':
+            x = torch.stack([self.gru_fn_list[0](x), self.gru_fn_list[1](x_reverse)], dim=1)
         else:
             raise MLGBError
 
+        x = x if self.gru_bi_mode == 'Frontward,Backward' else torch.unsqueeze(x, dim=1)
         return x
 
 
