@@ -16,7 +16,7 @@ from mlgb.utils import check_filepath
 if __name__ == '__main__':
     model_name = 'DSIN'
     lang = 'tf'
-    seed = 2020
+    seed = 0
 
     # path of save_model:
     tmp_dir = '.tmp'

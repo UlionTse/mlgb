@@ -32,7 +32,7 @@ def plot_confusion_matrix(y_confusion_matrix, save_dir='.', dpi=800):
 
 
 if __name__ == '__main__':
-    model_name = 'NCF'
+    model_name = 'YoutubeDNN'
     sample_mode = 'Sample:batch'
     print(f'model_name: {model_name}')
 
@@ -42,13 +42,13 @@ if __name__ == '__main__':
     save_model_dir = f'{model_dir}/save_model'
     check_filepath(tmp_dir, model_dir, log_dir, save_model_dir)
 
-    seed = 2024
+    seed = 0
     n_classes = 100
     feature_names, (x_train, y_train), (x_test, y_test) = get_multiclass_label_data(
         n_samples=int(2e4),
         n_classes=n_classes,
         inputs_if_2_groups=True,
-        multiclass_item_features_if_only_item_id=True,  # True if model_name in ('YoutubeDNN', 'GRU4Rec', 'MIND',) else False,
+        multiclass_item_features_if_only_item_id=True,
         seed=seed,
     )
     y_int_train, y_int_test = y_train, y_test
@@ -67,7 +67,8 @@ if __name__ == '__main__':
         task=f'multiclass:{n_classes}',
         aim='matching',
         lang='tf',
-        seed=0,
+        seed=seed,
+
         model_result_temperature_ratio=None,
         sample_mode=sample_mode,
         sample_num=None,

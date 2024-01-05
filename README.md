@@ -134,11 +134,6 @@ mlgb.get_model_help(model_name='LR', lang='torch')
 class LR(torch.nn.modules.module.Module)
  |  LR(feature_names, task='binary', device='cpu', inputs_if_multivalued=False, inputs_if_sequential=False, inputs_if_embed_dense=False, embed_dim=32, embed_2d_dim=None, embed_initializer=None, pool_mv_mode='Pooling:average', pool_mv_axis=2, pool_mv_initializer=None, pool_seq_mode='Pooling:average', pool_seq_axis=1, pool_seq_initializer=None, model_l1=0.0, model_l2=0.0, linear_if_bias=True)
  |  
- |  Method resolution order:
- |      LR
- |      torch.nn.modules.module.Module
- |      builtins.object
- |  
  |  Methods defined here:
  |  
  |  __init__(self, feature_names, task='binary', device='cpu', inputs_if_multivalued=False, inputs_if_sequential=False, inputs_if_embed_dense=False, embed_dim=32, embed_2d_dim=None, embed_initializer=None, pool_mv_mode='Pooling:average', pool_mv_axis=2, pool_mv_initializer=None, pool_seq_mode='Pooling:average', pool_seq_axis=1, pool_seq_initializer=None, model_l1=0.0, model_l2=0.0, linear_if_bias=True)

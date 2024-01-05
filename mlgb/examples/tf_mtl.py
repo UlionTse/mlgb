@@ -13,7 +13,8 @@ from mlgb.utils import check_filepath
 
 
 if __name__ == '__main__':
-    model_name = mtl_models[3]
+    model_name = 'PEPNet'
+    seed = 0
     print(f'model_name: {model_name}')
 
     tmp_dir = '.tmp'
@@ -25,7 +26,13 @@ if __name__ == '__main__':
     device = 'cuda' if tf.test.is_built_with_cuda() else 'cpu'
     print(f'device: {device}')
 
-    feature_names, (x_train, y_train), (x_test, y_test) = get_multitask_label_data(n_samples=int(1e4))
+    feature_names, (x_train, y_train), (x_test, y_test) = get_multitask_label_data(
+        n_samples=int(1e4),
+        negative_class_weight=0.9,
+        multitask_cvr=0.5,
+        test_size=0.15,
+        seed=seed,
+    )
     y_train = (y_train[:, 0], y_train[:, 1])
     y_test = (y_test[:, 0], y_test[:, 1])
     print([len(names) for names in feature_names])
@@ -36,7 +43,7 @@ if __name__ == '__main__':
         task=('binary', 'binary'),
         aim='mtl',
         lang='tf',
-        seed=0,
+        seed=seed,
     )
     model.compile(
         loss=[tf.losses.BinaryCrossentropy(), tf.losses.BinaryCrossentropy()],

@@ -519,7 +519,7 @@ class PEPNet(torch.nn.Module):
                  f_ep_id_list=(0,), f_pp_id_list=(1, 2, 3),
                  domain_num=1, tower_dnn_hidden_units=(64, 32),
                  gnu_factor=2.0, gnu_last_activation='sigmoid', gnu_if_concat_general_inputs=False,
-                 dnn_activation='relu', dnn_dropout=0.0, dnn_if_bn=False, dnn_if_ln=False,
+                 dnn_activation='selu', dnn_dropout=0.0, dnn_if_bn=False, dnn_if_ln=False,
                  ):
         """
         Model Name: PEPNet(Parameter&EmbeddingPersonalizedNetwork)

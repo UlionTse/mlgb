@@ -106,7 +106,7 @@ if __name__ == '__main__':
     # model_name = 'PNN'
     lang = 'torch'
     device = 'cuda'
-    seed = 2020
+    seed = 0
 
     two_inputs_models = ['PLM', 'GRU4Rec', 'Caser', 'SASRec', 'BERT4Rec', 'BST', 'DIN', 'DIEN', 'DSIN']
 
@@ -153,7 +153,7 @@ if __name__ == '__main__':
             device=device,
             seed=seed,
             model_l1=0.0,
-            model_l2=0.000001,
+            model_l2=1e-6,
         )
         print(model, end='\n\n')
 

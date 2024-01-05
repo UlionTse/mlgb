@@ -23,18 +23,6 @@ import numpy
 import torch
 
 
-# Embedding = tf.keras.layers.Embedding
-# Dense = tf.keras.layers.Dense
-# Activation = tf.keras.layers.Activation
-# L1L2 = tf.keras.regularizers.L1L2
-# Dropout = tf.keras.layers.Dropout
-# BatchNormalization = tf.keras.layers.BatchNormalization
-# LayerNormalization = tf.keras.layers.LayerNormalization
-# Conv2D = tf.keras.layers.Conv2D
-# MaxPooling2D = tf.keras.layers.MaxPooling2D
-# Flatten = tf.keras.layers.Flatten
-
-
 InputsModeList = ['Inputs:feature', 'Inputs:sequential']
 PoolModeList = ['Pooling:max', 'Pooling:average', 'Pooling:sum']
 MVPoolModeList = ['Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
