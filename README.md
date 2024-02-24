@@ -35,7 +35,7 @@
 
 | ID  | Model Name    | Paper Link                                                                                                                                                                             | Paper Team                                                                   | Paper Year |
 | --- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------- |
-| <tr><th colspan=5 align="center">:open_file_folder: **Ranking-Model::Normal** :backhand_index_pointing_down:</th></tr> |
+| <tr><th colspan=5 align="center">:open_file_folder: **Ranking-Model::Normal**</th></tr> |
 | 1   | LR            | [Predicting Clicks: Estimating the Click-Through Rate for New Ads](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/predictingclicks.pdf)                           | Microsoft                                                                    | 2007       |
 | 2   | PLM/MLR       | [Learning Piece-wise Linear Models from Large Scale Data for Ad Click Prediction](https://arxiv.org/pdf/1704.05194.pdf)                                                                | Alibaba                                                                      | 2017       |
 | 3   | MLP/DNN       | [Neural Networks for Pattern Recognition](http://diyhpl.us/~bryan/papers2/ai/ahuman-pdf-only/neural-networks/2005-Pattern%20Recognition.pdf)                                           | Christopher M. Bishop(Microsoft, 1997-Present), Foreword by Geoffrey Hinton. | 1995       |
