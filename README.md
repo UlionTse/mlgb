@@ -129,7 +129,7 @@ get_model(feature_names, model_name='LR', task='binary', aim='ranking', lang='Te
 """
 
 # parameters of model:
-mlgb.get_model_help(model_name='LR', lang='torch')
+mlgb.get_model_help(model_name='LR', lang='tf')
 
 """
  class LR(tf.keras.src.models.model.Model)
