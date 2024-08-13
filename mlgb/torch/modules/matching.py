@@ -20,10 +20,12 @@ limitations under the License.
 from mlgb.torch.configs import torch
 from mlgb.torch.functions import FlattenLayer
 from mlgb.torch.inputs import InputsLayer
-from mlgb.torch.components.linears import DeepNeuralNetworkLayer
+from mlgb.torch.components.linears import (
+    DeepNeuralNetworkLayer,
+    CapsuleNetworkLayer,
+)
 from mlgb.torch.components.retrieval import (
     BaseInputsEmbeddingLayer,
-    CapsuleNetworkLayer,
 )
 from mlgb.error import MLGBError
 

@@ -18,6 +18,7 @@ limitations under the License.
 """
 
 from mlgb.tf.configs import (
+    numpy,
     tf,
     Dense,
     L1L2,
@@ -36,6 +37,7 @@ from mlgb.tf.functions import (
     IdentityLayer,
     ActivationLayer,
     InitializerLayer,
+    MaskLayer,
 )
 from mlgb.error import MLGBError
 
@@ -51,6 +53,7 @@ __all__ = [
     'ConvolutionalNeuralNetworkLayer',
     'GatedRecurrentUnitLayer',
     'BiGatedRecurrentUnitLayer',
+    'CapsuleNetworkLayer',
 ]
 
 
@@ -461,6 +464,7 @@ class DNN3dParallelLayer(tf.keras.layers.Layer):
                 seed=seed,
             ) for i in range(self.dnn_length)
         ]
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -476,7 +480,7 @@ class DNN3dParallelLayer(tf.keras.layers.Layer):
             x = dnn_fn(x)
 
         if self.dnn_if_output2d:
-            x = Flatten()(x)
+            x = self.flatten_fn(x)
         return x
 
 
@@ -502,13 +506,12 @@ class Linear2dParallelLayer(tf.keras.layers.Layer):
             linear_initializer=linear_initializer,
             seed=seed,
         )
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 2:
             raise MLGBError
 
-        _, self.inputs_width = input_shape
-        self.outputs_width = int(self.linear_parallel_num * self.linear_unit)
         self.built = True
         return
 
@@ -517,7 +520,7 @@ class Linear2dParallelLayer(tf.keras.layers.Layer):
         x = inputs
         x = tf.stack([x] * self.linear_parallel_num, axis=1)  # (batch_size, linear_parallel_num, inputs_width)
         x = self.linear3d_parallel_fn(x)  # (batch_size, linear_parallel_num, linear_unit)
-        x = tf.reshape(x, shape=[-1, self.outputs_width])
+        x = self.flatten_fn(x)
         return x
 
 
@@ -763,6 +766,80 @@ class BiGatedRecurrentUnitLayer(tf.keras.layers.Layer):
         return x
 
 
+class CapsuleNetworkLayer(tf.keras.layers.Layer):
+    def __init__(self, capsule_num=3, capsule_activation='squash', capsule_l2=0.0, capsule_initializer=None,
+                 capsule_interest_num_if_dynamic=False, capsule_input_sequence_pad_mode='pre',
+                 capsule_routing_initializer='random_normal', seed=None):
+        super().__init__()
+        if capsule_input_sequence_pad_mode not in ('pre', 'post'):
+            raise MLGBError
+
+        self.capsule_num = capsule_num
+        self.capsule_l2 = capsule_l2
+        self.capsule_interest_num_if_dynamic = capsule_interest_num_if_dynamic
+        self.capsule_input_sequence_pad_mode = capsule_input_sequence_pad_mode
+        self.capsule_initializer = InitializerLayer(
+            initializer=capsule_initializer,
+            activation=capsule_activation,
+            seed=seed,
+        ).get()
+        self.capsule_routing_initializer = InitializerLayer(
+            initializer=capsule_routing_initializer,
+            activation=None,
+            seed=seed,
+        ).get()
+        self.activation_fn = ActivationLayer(activation=capsule_activation)
+        self.mask_fn = MaskLayer(att_if_mask=True)
+
+    def build(self, input_shape):
+        if input_shape.rank != 3:
+            raise MLGBError
+
+        _, seq_len, embed_dim = input_shape
+        if self.capsule_interest_num_if_dynamic:
+            seq_len = self.get_dynamic_interest_num(seq_len, embed_dim)
+            self.seq_len = seq_len
+
+        self.capsule_bilinear_weight = self.add_weight(
+            name='capsule_bilinear_weight',
+            shape=[seq_len, embed_dim, embed_dim],
+            initializer=self.capsule_initializer,
+            regularizer=L1L2(0.0, self.capsule_l2),
+            trainable=True,
+        )
+        self.capsule_routing_weight = self.add_weight(
+            name='capsule_routing_weight',
+            shape=[1, seq_len, embed_dim],
+            initializer=self.capsule_routing_initializer,
+            regularizer=L1L2(0.0, self.capsule_l2),
+            trainable=True,
+        )
+        self.built = True
+        return
+
+    @tf.function
+    def call(self, inputs):
+        x = inputs
+        if self.capsule_interest_num_if_dynamic:
+            x = x[:, -self.seq_len:, :] if self.capsule_input_sequence_pad_mode == 'pre' else x[:, :self.seq_len, :]
+
+        w = self.capsule_routing_weight
+        w_b = self.capsule_bilinear_weight
+        for i in range(self.capsule_num):
+            w = self.mask_fn(w)
+            w = tf.nn.softmax(w, axis=1)
+            x_h = tf.einsum('bfe,fee->bfe', x, w_b) * w  # high_level_capsule: x_h = w * w_b * x
+            x_h = self.activation_fn(x_h)  # squash
+
+            w_i = tf.einsum('bfe,fee->bfe', x_h, w_b) * x  # routing_logit: w_i = x_h * w_b * x
+            w_i = tf.reduce_sum(w_i, axis=0, keepdims=True)
+            w = w + w_i  # if `w` isn't be updated(not bp), it's like `w` of RNN.
+            x = x_h
+        return x
+
+    def get_dynamic_interest_num(self, seq_len, embed_dim):
+        seq_k = max(1, min(seq_len, int(numpy.log2(embed_dim))))
+        return seq_k
 
 
 

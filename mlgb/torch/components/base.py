@@ -195,6 +195,7 @@ class RegulationModuleLayer(torch.nn.Module):
             initializer=fgu_initializer,
             activation=None,
         ).get()
+        self.flatten_fn = FlattenLayer()
         self.built = False
         self.device = torch.device(device=device)
         self.to(device=self.device)
@@ -205,7 +206,6 @@ class RegulationModuleLayer(torch.nn.Module):
                 raise MLGBError
 
             _, self.fields_width, self.embed_dim = x.shape
-            self.inputs_width = int(self.fields_width * self.embed_dim)
             self.fgu_weight = self.initializer_fn(torch.nn.parameter.Parameter(
                 data=torch.empty(
                     size=[1, self.fields_width, 1],
@@ -224,7 +224,7 @@ class RegulationModuleLayer(torch.nn.Module):
         fgu_score = torch.softmax(fgu_w, dim=1)
 
         fgu_outputs = x * fgu_score
-        fgu_outputs = torch.reshape(fgu_outputs, shape=[-1, self.inputs_width])
+        fgu_outputs = self.flatten_fn(fgu_outputs)
         return fgu_outputs
 
 

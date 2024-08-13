@@ -589,8 +589,6 @@ class PEPNet(torch.nn.Module):
             raise MLGBError('gnu_factor')
         if not (min(f_ep_id_list) >= 0 and min(f_pp_id_list) >= 0):
             raise MLGBError('f_ep_id_list or f_pp_id_list')
-        if len(f_ep_id_list) != 1:
-            raise MLGBError('f_ep_id_list')
 
         self.f_ep_id_list = list(f_ep_id_list)
         self.f_pp_id_list = list(f_pp_id_list)
@@ -620,9 +618,9 @@ class PEPNet(torch.nn.Module):
                     TaskLayer(
                         task=task_list[j],
                         task_linear_if_identity=True,
-                        device=device + i + j if isinstance(device, int) else device,
+                        device=device,
                     )
-                    for i in range(domain_num)
+                    for _ in range(domain_num)
                 ])
                 for j in range(self.task_num)
             ])

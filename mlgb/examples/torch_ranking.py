@@ -105,7 +105,7 @@ def train_and_evaluate(model, optimizer, loss_fn, x_train, y_train, x_test, y_te
 if __name__ == '__main__':
     # model_name = 'PNN'
     lang = 'torch'
-    device = 'cuda'
+    device = None
     seed = 0
 
     two_inputs_models = ['PLM', 'GRU4Rec', 'Caser', 'SASRec', 'BERT4Rec', 'BST', 'DIN', 'DIEN', 'DSIN']

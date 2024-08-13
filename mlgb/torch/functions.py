@@ -297,7 +297,7 @@ class ActivationLayer(torch.nn.Module):
             'squash': SquashLayer(device=device),
         }
         if self.activation is None:
-            self.activation_fn = IdentityLayer(device=device)
+            self.activation_fn = IdentityLayer(if_stop_gradient=False, device=device)
         elif isinstance(self.activation, torch.nn.Module):
             self.activation_fn = self.activation
         else:

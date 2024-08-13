@@ -476,6 +476,7 @@ class MultiValuedPoolingLayer(tf.keras.layers.Layer):
                 pool_mode=pool_mode,
                 pool_axis=pool_axis,
             )
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 4:
@@ -510,7 +511,7 @@ class MultiValuedPoolingLayer(tf.keras.layers.Layer):
             raise MLGBError
 
         if self.pool_if_output2d:
-            x = Flatten()(x)
+            x = self.flatten_fn(x)
         return x  # (b, f, e) or (b, f*e)
 
 

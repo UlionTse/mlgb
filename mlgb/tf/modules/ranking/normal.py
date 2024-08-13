@@ -28,6 +28,7 @@ from mlgb.tf.configs import (
     FBIModeList,
 )
 from mlgb.tf.functions import (
+    IdentityLayer,
     ActivationLayer,
     InitializerLayer,
     KMaxPoolingLayer,
@@ -35,10 +36,8 @@ from mlgb.tf.functions import (
     FlattenAxesLayer,
 )
 from mlgb.tf.components.linears import (
-    IdentityLayer,
     LinearLayer,
     DeepNeuralNetworkLayer,
-    FeedForwardNetworkLayer,
     DNN3dParallelLayer,
     Linear2dParallelLayer,
     ConvolutionalNeuralNetworkLayer,
@@ -255,6 +254,7 @@ class MaskNetLayer(tf.keras.layers.Layer):
                 seed=seed,
             )
         self.ln_emb_fn = LayerNormalization(axis=2)  #
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -273,12 +273,12 @@ class MaskNetLayer(tf.keras.layers.Layer):
         if self.mask_mode == 'MaskNet:parallel':
             x_pool = [block_fn([x_e, x_m]) for block_fn in self.block_fn_list]
             x = tf.concat(x_pool, axis=1)
-            x = Flatten()(x)
+            x = self.flatten_fn(x)
             x = self.dnn_fn(x)
         else:
             for block_fn in self.block_fn_list:
                 x_e = block_fn([x_e, x_m])
-            x = Flatten()(x_e)
+            x = self.flatten_fn(x_e)
         return x
 
 
@@ -698,6 +698,7 @@ class InteractionMachineLayer(tf.keras.layers.Layer):
                 dnn_initializer=dnn_initializer,
                 seed=seed,
             )
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -723,7 +724,7 @@ class InteractionMachineLayer(tf.keras.layers.Layer):
         x_im = tf.concat(x_pool, axis=1)  # (b, order * e)
 
         if self.im_mode == 'DeepIM':
-            x_2d = Flatten()(x_3d)
+            x_2d = self.flatten_fn(x_3d)
             x_dnn = self.dnn_fn(x_2d)
             x_im = tf.concat([x_im, x_dnn], axis=1)
         return x_im
@@ -1069,6 +1070,7 @@ class OperationNeuralNetworkLayer(tf.keras.layers.Layer):
             dnn_initializer=dnn_initializer,
             seed=seed,
         )
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -1080,7 +1082,7 @@ class OperationNeuralNetworkLayer(tf.keras.layers.Layer):
     @tf.function
     def call(self, inputs):
         embed_3d_tensor = inputs
-        embed_2d_tensor = Flatten()(embed_3d_tensor)
+        embed_2d_tensor = self.flatten_fn(embed_3d_tensor)
 
         fbi_outputs = self.fbi_fn(embed_3d_tensor)
         ffm_outputs = tf.concat([fbi_outputs, embed_2d_tensor], axis=1)
@@ -1127,6 +1129,7 @@ class AdaptiveFactorizationNetworkLayer(tf.keras.layers.Layer):
                 dnn_initializer=ensemble_dnn_initializer,
                 seed=seed,
             )
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -1138,7 +1141,7 @@ class AdaptiveFactorizationNetworkLayer(tf.keras.layers.Layer):
     @tf.function
     def call(self, inputs):
         embed_3d_tensor = inputs
-        embed_2d_tensor = Flatten()(embed_3d_tensor)
+        embed_2d_tensor = self.flatten_fn(embed_3d_tensor)
 
         ltl_outputs = self.ltl_fn(embed_3d_tensor)
         afn_outputs = self.dnn_fn(ltl_outputs)
@@ -1458,6 +1461,7 @@ class ConvolutionalClickPredictionModelLayer(tf.keras.layers.Layer):
             seed=seed,
         )
         self.k_max_pooling_fn = KMaxPoolingLayer(pool_axis=1)
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -1478,7 +1482,7 @@ class ConvolutionalClickPredictionModelLayer(tf.keras.layers.Layer):
             p = self.flexible_p(i=i+1, j=self.cnn_length, n=x.shape[1])  # n = flexible features width
             x = self.k_max_pooling_fn(x, k=p)
 
-        x = Flatten()(x)
+        x = self.flatten_fn(x)
         x = self.dnn_fn(x)
         return x
 
@@ -1733,6 +1737,7 @@ class AutomaticFeatureInteractionLearningLayer(tf.keras.layers.Layer):
                 seed=seed + i if isinstance(seed, int) else seed,
             ) for i in range(trm_layer_num)
         ]
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if len(input_shape) != 2:
@@ -1754,7 +1759,7 @@ class AutomaticFeatureInteractionLearningLayer(tf.keras.layers.Layer):
             for trm_fn in self.trm_fn_list[1:]:
                 x = trm_fn([x, x])
 
-        x = Flatten()(x)
+        x = self.flatten_fn(x)
         return x
 
 

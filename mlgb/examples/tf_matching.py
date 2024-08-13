@@ -3,6 +3,7 @@
 
 import numpy
 import pandas
+import faiss
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report, roc_auc_score, ConfusionMatrixDisplay
@@ -32,18 +33,20 @@ def plot_confusion_matrix(y_confusion_matrix, save_dir='.', dpi=800):
 
 
 if __name__ == '__main__':
+    lang = 'tf'
+    seed = 0
+    device = None
+    n_classes = 100
     model_name = 'YoutubeDNN'
     sample_mode = 'Sample:batch'
     print(f'model_name: {model_name}')
 
     tmp_dir = '.tmp'
-    model_dir = f'{tmp_dir}/{model_name}_tf'
+    model_dir = f'{tmp_dir}/{model_name}_{lang}'
     log_dir = f'{model_dir}/log_dir'
     save_model_dir = f'{model_dir}/save_model'
     check_filepath(tmp_dir, model_dir, log_dir, save_model_dir)
 
-    seed = 0
-    n_classes = 100
     feature_names, (x_train, y_train), (x_test, y_test) = get_multiclass_label_data(
         n_samples=int(2e4),
         n_classes=n_classes,
@@ -66,8 +69,9 @@ if __name__ == '__main__':
         model_name=model_name,
         task=f'multiclass:{n_classes}',
         aim='matching',
-        lang='tf',
+        lang=lang,
         seed=seed,
+        device=device,
 
         model_result_temperature_ratio=None,
         sample_mode=sample_mode,
@@ -77,7 +81,7 @@ if __name__ == '__main__':
         user_dnn_hidden_units=(256, 128),
     )
     model.compile(
-        loss=model.sampled_softmax_loss,
+        loss=model.sampled_softmax_loss,  #
         optimizer=tf.optimizers.Nadam(learning_rate=1e-3),
         metrics=[tf.metrics.AUC(multi_label=True, from_logits=True if sample_mode else False)],
     )
@@ -121,7 +125,7 @@ if __name__ == '__main__':
     model.save(filepath=save_model_dir)
     local_model = tf.keras.models.load_model(
         filepath=save_model_dir,
-        custom_objects={'SampledSoftmaxLossLayer': SampledSoftmaxLossLayer}
+        custom_objects={'SampledSoftmaxLossLayer': SampledSoftmaxLossLayer},  #
     )
 
     y_local_pred = local_model.predict(x_test)
@@ -129,8 +133,10 @@ if __name__ == '__main__':
     print('y_local_pred == y_model_pred:', numpy.allclose(y_local_pred, y_model_pred))
     print(numpy.abs(y_local_pred - y_model_pred).max())
 
-    # matching model to deploy:
+    # matching model to explain:
     user_inputs, item_inputs = x_test
+    global user_embeddings
+    global item_embeddings
 
     if model_name == 'NCF':
         user_mf_embeddings = local_model.user_mf_embedding_fn(user_inputs)
@@ -150,3 +156,16 @@ if __name__ == '__main__':
     print('y_match_pred == y_model_pred:', numpy.allclose(y_match_pred, y_model_pred))
     print(numpy.abs(y_match_pred - y_model_pred).max())
 
+    # matching model to deploy:
+    if model_name != 'NCF':
+        user_fid = 0  # faiss_id
+        top_k = 10
+        n = 100  # limit memory because of testing only.
+        user_embeddings, item_embeddings = user_embeddings[:n, :], item_embeddings[:n, :]
+
+        index = faiss.IndexFlatIP(item_embeddings.shape[-1])  # l2_norm first.
+        index.add(item_embeddings)
+        scores, item_fids = index.search(user_embeddings[user_fid:user_fid+1, :], k=top_k)
+        print(f'matching top@{top_k} item_fid_list of user_fid={user_fid}:\n{item_fids[0]}')
+
+    print('done.')

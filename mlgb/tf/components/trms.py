@@ -68,7 +68,7 @@ class SimpleAttentionLayer(tf.keras.layers.Layer):
         x_v = x_k
 
         w = x_q * x_k / self.scale
-        w = w / self.softmax_pre_temperature_ratio
+        w = w / self.softmax_pre_temperature_ratio  # debug power_p of MIND model.
         w = self.mask_fn(w)
         w = tf.nn.softmax(w, axis=self.softmax_axis)
         x_v = x_v * w

@@ -1,8 +1,53 @@
 0.0.1
 create project on 2020.11.06
 
-0.0.2
-second version
 
-0.0.4
+0.0.2
+中文：
+一、整体框架及模型侧
+50+排序（包含序列、多任务）、召回模型，tf和torch双语言支持
+召回模型实现多分类负采样策略
+序列模型统一实现可选的add和label_attention策略，使listwise模型转为可用的pointwise模型
+FM类模型的高度统一实现和拓展
+layer和model分离，用户可引入不同layer组合新的模型架构
+统一seed，使得模型训练效果稳定可复现
+模型参数尽可能多开放，并可以个性化配置
+
+二、特征工程侧
+统一特征数据输入规范：数值特征（必选）+类别特征（必选）+多值特征（可选）+序列特征（可选）
+个性化生成测试训练数据。平等的使各种设备、各种配置都能运行、测试、体验深度模型。
+实现部分常用的特征工程函数。
+
+三、语言性能侧
+tf模型充分利用tf.function的优势
+统一tf和torch的模型权重初始化和默认应对策略
+torch模型通过自建build函数自适应输入尺寸，使得torch和tf统一
+torch模型拓展自身函数，如BN、LN等，使得torch和tf统一
+torch模型统一增加L1、L2正则
+
+
+English:
+I. Overall Framework and Model Side
+- Over 50 sorts (including sequences, multi-task), recall models, dual-language support for TensorFlow and PyTorch
+- Multi-class negative sampling strategy implemented in recall models
+- Unified implementation of optional add and label_attention strategies in sequence models, converting listwise models to usable pointwise models
+- Highly unified implementation and expansion of FM-like models
+- Separation of layers and models, allowing users to combine different layers to create new model architectures
+- Unified seed for stable and reproducible model training effects
+- As many model parameters as possible are open and can be individually configured
+
+II. Feature Engineering Side
+- Unified feature data input standards: Numerical features (mandatory) + Categorical features (mandatory) + Multi-valued features (optional) + Sequence features (optional)
+- Personalized generation of test and training data. Equally enabling various devices and configurations to run, test, and experience deep models.
+- Implementation of some commonly used feature engineering functions.
+
+III. Language Performance Side
+- TensorFlow models fully utilize the advantages of tf.function
+- Unified weight initialization and default strategies for TensorFlow and PyTorch models
+- PyTorch models adapt to input sizes through self-built build functions, unifying PyTorch and TensorFlow
+- PyTorch models expand their own functions, such as BN (Batch Normalization), LN (Layer Normalization), etc., to unify PyTorch and TensorFlow
+- Unified addition of L1 and L2 regularization to PyTorch models
+
+
+0.0.5
 

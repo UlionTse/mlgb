@@ -578,7 +578,7 @@ class MaskNet(tf.keras.Model):
                  ):
         """
         Model Name: MaskNet(MaskNet)
-        Paper Team: Sina Weibo
+        Paper Team: Weibo(Sina)
         Paper Year: 2021
         Paper Name: <MaskNet: Introducing Feature-Wise Multiplication to CTR Ranking Models by Instance-Guided Mask>
         Paper Link: https://arxiv.org/pdf/2102.07619.pdf
@@ -3964,7 +3964,7 @@ class FiBiNet(tf.keras.Model):
                  ):
         """
         Model Name: FiBiNet(FeatureImportanceBilinearInteractionNetwork)
-        Paper Team: Sina Weibo
+        Paper Team: Weibo(Sina)
         Paper Year: 2019
         Paper Name: <FiBiNET: Combining Feature Importance and Bilinear feature Interaction for Click-Through Rate Prediction>
         Paper Link: https://arxiv.org/pdf/1905.09433.pdf

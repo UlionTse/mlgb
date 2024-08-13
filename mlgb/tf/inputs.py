@@ -79,6 +79,7 @@ class SequentialInputsLayer(tf.keras.layers.Layer):
         self.embed_dense_fn = embed_dense_fn
         self.pool_mv_fn = pool_mv_fn
         self.pool_seq_fn = pool_seq_fn
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         self.inputs_num = len(input_shape)
@@ -114,7 +115,7 @@ class SequentialInputsLayer(tf.keras.layers.Layer):
                 mv_tensor = inputs[2]
                 _, embed_mv_4d_tensor = self.embed_sparse_mv_fn(mv_tensor)
                 mv_3d_tensor = self.pool_mv_fn(embed_mv_4d_tensor)
-                mv_2d_tensor = Flatten()(mv_3d_tensor)
+                mv_2d_tensor = self.flatten_fn(mv_3d_tensor)
 
                 if embed_cate_3d_tensor.shape.rank == 2:
                     embed_cate_3d_tensor = tf.concat([embed_cate_3d_tensor, mv_2d_tensor], axis=1)
@@ -153,6 +154,7 @@ class FeatureInputsLayer(tf.keras.layers.Layer):
             pool_mv_fn=pool_mv_fn,
             pool_seq_fn=pool_seq_fn,
         )
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if len(input_shape) not in (2, 3, 4):
@@ -166,7 +168,7 @@ class FeatureInputsLayer(tf.keras.layers.Layer):
         dense_2d_tensor, embed_cate_3d_tensor, seq_3d_tensor = self.inputs_seq_fn(inputs)
         
         if self.inputs_if_sequential:
-            seq_2d_tensor = Flatten()(seq_3d_tensor)
+            seq_2d_tensor = self.flatten_fn(seq_3d_tensor)
 
             if embed_cate_3d_tensor.shape.rank == 2:
                 embed_cate_3d_tensor = tf.concat([embed_cate_3d_tensor, seq_2d_tensor], axis=1)

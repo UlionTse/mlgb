@@ -24,10 +24,10 @@ from mlgb.tf.configs import (
 from mlgb.tf.inputs import InputsLayer
 from mlgb.tf.components.linears import (
     DeepNeuralNetworkLayer,
+    CapsuleNetworkLayer,
 )
 from mlgb.tf.components.retrieval import (
     BaseInputsEmbeddingLayer,
-    CapsuleNetworkLayer,
 )
 from mlgb.error import MLGBError
 

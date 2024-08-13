@@ -69,7 +69,7 @@ class SimpleAttentionLayer(torch.nn.Module):
         x_v = x_k
 
         w = x_q * x_k / self.scale
-        w = w / self.softmax_pre_temperature_ratio
+        w = w / self.softmax_pre_temperature_ratio  # debug power_p of MIND model.
         w = self.mask_fn(w)
         w = torch.softmax(w, dim=self.softmax_axis)
         x_v = x_v * w

@@ -23,6 +23,7 @@ from mlgb.torch.configs import (
     FBIModeList,
 )
 from mlgb.torch.functions import (
+    IdentityLayer,
     BatchNormalizationLayer,
     LayerNormalizationLayer,
     ActivationLayer,
@@ -33,10 +34,8 @@ from mlgb.torch.functions import (
     KMaxPoolingLayer,
 )
 from mlgb.torch.components.linears import (
-    IdentityLayer,
     LinearLayer,
     DeepNeuralNetworkLayer,
-    FeedForwardNetworkLayer,
     DNN3dParallelLayer,
     Linear2dParallelLayer,
     ConvolutionalNeuralNetworkLayer,

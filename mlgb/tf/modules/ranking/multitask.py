@@ -516,7 +516,7 @@ class ParameterEmbeddingPersonalizedNetworkLayer(tf.keras.layers.Layer):
 
     @tf.function
     def call(self, inputs):
-        x_g, x_d, x_uia = inputs # (general_f, domain_f, user_item_author_f)
+        x_g, x_d, x_uia = inputs  # (general_f, domain_f, user_item_author_f)
 
         if self.gnu_if_concat_general_inputs:
             x_g_ep = self.stop_gradient_fn_list[0](x_g)  # EPNet

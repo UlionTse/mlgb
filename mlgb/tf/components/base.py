@@ -34,7 +34,6 @@ from mlgb.tf.functions import (
     SimplePoolingLayer,
 )
 from mlgb.tf.components.linears import (
-    IdentityLayer,
     DeepNeuralNetworkLayer,
     FeedForwardNetworkLayer,
     DNN3dParallelLayer,
@@ -191,13 +190,13 @@ class RegulationModuleLayer(tf.keras.layers.Layer):
             activation=None,
             seed=seed,
         ).get()
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
             raise MLGBError
 
         _, self.fields_width, self.embed_dim = input_shape
-        self.inputs_width = int(self.fields_width * self.embed_dim)
 
         self.fgu_weight = self.add_weight(
             name='fgu_weight',
@@ -215,7 +214,7 @@ class RegulationModuleLayer(tf.keras.layers.Layer):
         fgu_w = self.fgu_weight * self.fgu_tau_ratio
         fgu_score = tf.nn.softmax(fgu_w, axis=1)
         fgu_outputs = x * fgu_score
-        fgu_outputs = tf.reshape(fgu_outputs, shape=[-1, self.inputs_width])
+        fgu_outputs = self.flatten_fn(fgu_outputs)
         return fgu_outputs
 
 
@@ -473,6 +472,7 @@ class FactorEstimatingNetworkLayer(tf.keras.layers.Layer):
         self.dnn_l2 = dnn_l2
         self.dnn_initializer = dnn_initializer
         self.seed = seed
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -497,7 +497,7 @@ class FactorEstimatingNetworkLayer(tf.keras.layers.Layer):
     @tf.function
     def call(self, inputs):
         x = inputs
-        x = Flatten()(x)  # (b, f*e)
+        x = self.flatten_fn(x)  # (b, f*e)
         x = self.dnn_fn(x)
 
         if not self.ifm_mode_if_dual:
@@ -519,6 +519,7 @@ class LogarithmicTransformationLayer(tf.keras.layers.Layer):
             seed=seed,
         ).get()
         self.bn_fn_list = [BatchNormalization(axis=1) for _ in range(2)]
+        self.flatten_fn = Flatten()
 
     def build(self, input_shape):
         if input_shape.rank != 3:
@@ -553,7 +554,7 @@ class LogarithmicTransformationLayer(tf.keras.layers.Layer):
         x = tf.einsum('bfe,fu->beu', x, self.ltl_weight) + self.ltl_bias
         x = tf.exp(x)
         x = self.bn_fn_list[1](x)
-        x = Flatten()(x)  # (b, u*e)
+        x = self.flatten_fn(x)  # (b, u*e)
         return x
 
 

@@ -604,8 +604,6 @@ class PEPNet(tf.keras.Model):
             raise MLGBError('gnu_factor')
         if not (min(f_ep_id_list) >= 0 and min(f_pp_id_list) >= 0):
             raise MLGBError('f_ep_id_list or f_pp_id_list')
-        if len(f_ep_id_list) != 1:
-            raise MLGBError('f_ep_id_list')
 
         self.f_ep_id_list = list(f_ep_id_list)
         self.f_pp_id_list = list(f_pp_id_list)

@@ -19,13 +19,9 @@ limitations under the License.
 
 from mlgb.torch.configs import (
     torch,
-    numpy,
     SampleModeList,
 )
 from mlgb.torch.functions import (
-    InitializerLayer,
-    ActivationLayer,
-    MaskLayer,
     FlattenLayer,
 )
 from mlgb.torch.inputs import InputsLayer
@@ -36,7 +32,6 @@ from mlgb.error import MLGBError
 __all__ = [
     'SampledSoftmaxLossLayer',
     'BaseInputsEmbeddingLayer',
-    'CapsuleNetworkLayer',
 ]
 
 
@@ -44,6 +39,12 @@ class SampledSoftmaxLossLayer(torch.nn.Module):
     def __init__(self, sample_mode='Sample:batch', sample_num=None, sample_item_distribution_list=None,
                  sample_fixed_unigram_frequency_list=None, sample_fixed_unigram_distortion=1.0,
                  device='cpu'):
+        """
+        Paper Link:
+            https://arxiv.org/pdf/1310.4546.pdf,
+            https://arxiv.org/pdf/1412.2007.pdf,
+            https://www.tensorflow.org/extras/candidate_sampling.pdf
+        """
         super().__init__()
         if sample_mode not in SampleModeList:
             raise MLGBError
@@ -175,89 +176,7 @@ class BaseInputsEmbeddingLayer(torch.nn.Module):
         return x
 
 
-class CapsuleNetworkLayer(torch.nn.Module):
-    def __init__(self, capsule_num=3, capsule_activation='squash', capsule_l2=0.0, capsule_initializer=None,
-                 capsule_interest_num_if_dynamic=False, capsule_input_sequence_pad_mode='pre',
-                 capsule_routing_initializer='random_normal', device='cpu'):
-        super().__init__()
-        if capsule_input_sequence_pad_mode not in ('pre', 'post'):
-            raise MLGBError
 
-        self.capsule_num = capsule_num
-        self.capsule_l2 = capsule_l2
-        self.capsule_interest_num_if_dynamic = capsule_interest_num_if_dynamic
-        self.capsule_input_sequence_pad_mode = capsule_input_sequence_pad_mode
-        self.capsule_initializer_fn = InitializerLayer(
-            initializer=capsule_initializer,
-            activation=capsule_activation,
-        ).get()
-        self.capsule_routing_initializer_fn = InitializerLayer(
-            initializer=capsule_routing_initializer,
-            activation=None,
-        ).get()
-        self.activation_fn = ActivationLayer(
-            activation=capsule_activation,
-            device=device,
-        )
-        self.mask_fn = MaskLayer(
-            att_if_mask=True,
-            device=device,
-        )
-        self.built = False
-        self.device = torch.device(device=device)
-        self.to(device=self.device)
-
-    def build(self, x):
-        if not self.built:
-            if x.ndim != 3:
-                raise MLGBError
-
-            _, seq_len, embed_dim = x.shape
-            if self.capsule_interest_num_if_dynamic:
-                seq_len = self.get_dynamic_interest_num(seq_len, embed_dim)
-                self.seq_len = seq_len
-
-            self.capsule_bilinear_weight = self.capsule_initializer_fn(torch.nn.parameter.Parameter(
-                data=torch.empty(
-                    size=[seq_len, embed_dim, embed_dim],
-                    device=self.device,
-                ),
-                requires_grad=True,
-            ))
-            self.capsule_routing_weight = self.capsule_routing_initializer_fn(torch.nn.parameter.Parameter(
-                data=torch.empty(
-                    size=[1, seq_len, embed_dim],
-                    device=self.device,
-                ),
-                requires_grad=True,
-            ))
-            self.built = True
-        return
-
-    def forward(self, x):
-        self.build(x)
-        x = x.to(device=self.device) if x.device.type != self.device.type else x
-        
-        if self.capsule_interest_num_if_dynamic:
-            x = x[:, -self.seq_len:, :] if self.capsule_input_sequence_pad_mode == 'pre' else x[:, :self.seq_len, :]
-
-        w = self.capsule_routing_weight
-        w_b = self.capsule_bilinear_weight
-        for i in range(self.capsule_num):
-            w = self.mask_fn(w)
-            w = torch.softmax(w, dim=1)
-            x_h = torch.einsum('bfe,fee->bfe', x, w_b) * w  # high_level_capsule: x_h = w * w_b * x
-            x_h = self.activation_fn(x_h)  # squash
-
-            w_i = torch.einsum('bfe,fee->bfe', x_h, w_b) * x  # routing_logit: w_i = x_h * w_b * x
-            w_i = torch.reduce_sum(w_i, axis=0, keepdims=True)
-            w = w + w_i  # if `w` isn't be updated(not bp), it's like `w` of RNN.
-            x = x_h
-        return x
-
-    def get_dynamic_interest_num(self, seq_len, embed_dim):
-        seq_k = max(1, min(seq_len, int(numpy.log2(embed_dim))))
-        return seq_k
 
 
 
