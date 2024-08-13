@@ -39,10 +39,11 @@ setuptools.setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.8',  # 2024.10
+        # 'Programming Language :: Python :: 3.8',  # 2024.10
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Topic :: Software Development',
@@ -58,7 +59,7 @@ setuptools.setup(
         'tensorflow>=2.10.0',
         # 'tensorflow-addons>=0.21.0',
     ],
-    python_requires='>=3.8',
+    python_requires='>=3.9',
     extras_require={'pypi': ['build>=0.10.0', 'twine>=4.0.2']},
     zip_safe=False,
 )

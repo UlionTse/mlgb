@@ -124,17 +124,17 @@ class LR(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -224,17 +224,17 @@ class MLP(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -332,17 +332,17 @@ class PLM(torch.nn.Module):
             :param base_inputs_if_sequential: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -460,17 +460,17 @@ class DLRM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -570,17 +570,17 @@ class MaskNet(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -592,7 +592,7 @@ class MaskNet(torch.nn.Module):
             :param block_activation: Optional[str], default 'relu'.
             :param block_if_bn: bool, default False. Batch Normalization.
             :param block_dropout: float, default 0.0.
-            :param block_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param block_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'relu'.
             :param dnn_if_bn: bool, default False. Batch Normalization.
@@ -691,17 +691,17 @@ class DCM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -797,17 +797,17 @@ class DCN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -815,7 +815,7 @@ class DCN(torch.nn.Module):
 
         Task Model Parameters:
             :param dcn_version: str, default 'v2'. Union['v1', 'v2']
-            :param dcn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param dcn_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'relu'.
             :param dnn_dropout: float, default 0.0.
@@ -912,17 +912,17 @@ class EDCN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -934,9 +934,9 @@ class EDCN(torch.nn.Module):
                                 'EDCN:hadamard_product', 'EDCN:concatenation', 'EDCN:attention_pooling']
             :param bdg_layer_num: int, default 1.
             :param rgl_tau_ratio: float, default 1.0. From Regulation Module.
-            :param rgl_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param rgl_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param dcn_version: str, default 'v2'. Union['v1', 'v2']
-            :param dcn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param dcn_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param dnn_activation: Optional[str], default 'relu'.
             :param dnn_dropout: float, default 0.0.
             :param dnn_if_bn: bool, default False. Batch Normalization.
@@ -1109,17 +1109,17 @@ class FM(FMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1128,7 +1128,7 @@ class FM(FMs):
         Task Model Parameters:
             :param fbi_mode: str, default 'FM'. Field Bi-Interaction Mode. Union['FM', 'FM3D']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
         """
         super().__init__(
             feature_names, task, device,
@@ -1169,17 +1169,17 @@ class FFM(FMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1188,7 +1188,7 @@ class FFM(FMs):
         Task Model Parameters:
             :param fbi_mode: str, default 'FFM'. Field Bi-Interaction Mode. Union['FFM',]
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
         """
         super().__init__(
             feature_names, task, device,
@@ -1231,17 +1231,17 @@ class HOFM(FMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1250,7 +1250,7 @@ class HOFM(FMs):
         Task Model Parameters:
             :param fbi_mode: str, default 'HOFM'. Field Bi-Interaction Mode. Union['HOFM',]
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
 
         """
@@ -1293,17 +1293,17 @@ class FwFM(FMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1312,7 +1312,7 @@ class FwFM(FMs):
         Task Model Parameters:
             :param fbi_mode: str, default 'FwFM'. Field Bi-Interaction Mode. Union['FwFM',]
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
         """
         super().__init__(
             feature_names, task, device,
@@ -1353,17 +1353,17 @@ class FEFM(FMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1372,7 +1372,7 @@ class FEFM(FMs):
         Task Model Parameters:
             :param fbi_mode: str, default 'FEFM'. Field Bi-Interaction Mode. Union['FEFM',]
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
         """
         super().__init__(
             feature_names, task, device,
@@ -1413,17 +1413,17 @@ class FmFM(FMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1432,7 +1432,7 @@ class FmFM(FMs):
         Task Model Parameters:
             :param fbi_mode: str, default 'FmFM'. Field Bi-Interaction Mode. Union['FvFM', 'FmFM']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
         """
         super().__init__(
             feature_names, task, device,
@@ -1474,17 +1474,17 @@ class AFM(FMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1493,7 +1493,7 @@ class AFM(FMs):
         Task Model Parameters:
             :param fbi_mode: str, default 'AFM'. Field Bi-Interaction Mode. Union['AFM',]
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
         """
@@ -1536,17 +1536,17 @@ class LFM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1554,7 +1554,7 @@ class LFM(torch.nn.Module):
 
         Task Model Parameters:
             :param lfm_beta: float, default 1.0.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
         """
         super().__init__()
         if pool_mv_mode not in MVPoolModeList:
@@ -1709,17 +1709,17 @@ class IM(IMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1727,7 +1727,7 @@ class IM(IMs):
 
         Task Model Parameters:
             :param im_order: int, default 3. Union[1, 2, 3, 4, 5]
-            :param im_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param im_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
         """
         super().__init__(
             feature_names, task, device,
@@ -1767,17 +1767,17 @@ class DeepIM(IMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1785,7 +1785,7 @@ class DeepIM(IMs):
 
         Task Model Parameters:
             :param im_order: int, default 3. Union[1, 2, 3, 4, 5]
-            :param im_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param im_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'relu'.
             :param dnn_if_bn: bool, default False. Batch Normalization.
@@ -1920,17 +1920,17 @@ class IFM(IFMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -1942,7 +1942,7 @@ class IFM(IFMs):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2000,17 +2000,17 @@ class DIFM(IFMs):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2022,7 +2022,7 @@ class DIFM(IFMs):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2036,7 +2036,7 @@ class DIFM(IFMs):
             :param trm_mha_head_num: int, default 8. From MultiHeadAttention of Transformer.
             :param trm_mha_head_dim: int, default 32.
             :param trm_mha_if_mask: bool, default False.
-            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_residual_dropout: float, default 0.0.
         """
         super().__init__(
@@ -2083,17 +2083,17 @@ class FNN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2105,7 +2105,7 @@ class FNN(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2207,17 +2207,17 @@ class PNN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2228,7 +2228,7 @@ class PNN(torch.nn.Module):
                                 'FM', 'FM3D', 'FFM', 'HOFM', 'FwFM', 'FEFM', 'FvFM', 'FmFM', 'AFM',
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2332,17 +2332,17 @@ class PIN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2354,7 +2354,7 @@ class PIN(torch.nn.Module):
                                 'FM', 'FM3D', 'FFM', 'HOFM', 'FwFM', 'FEFM', 'FvFM', 'FmFM', 'AFM',
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2458,17 +2458,17 @@ class ONN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2480,7 +2480,7 @@ class ONN(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2588,17 +2588,17 @@ class AFN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2608,7 +2608,7 @@ class AFN(torch.nn.Module):
             :param afn_mode_if_ensemble: bool, default True.
             :param ltl_clip_min: float, default 1e-4.
             :param ltl_unit: int, default 32.
-            :param ltl_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param ltl_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'relu'.
             :param dnn_dropout: float, default 0.0.
@@ -2713,17 +2713,17 @@ class NFM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2735,7 +2735,7 @@ class NFM(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2839,17 +2839,17 @@ class WDL(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2861,7 +2861,7 @@ class WDL(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -2963,17 +2963,17 @@ class DeepFM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -2985,7 +2985,7 @@ class DeepFM(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -3087,17 +3087,17 @@ class DeepFEFM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -3109,7 +3109,7 @@ class DeepFEFM(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -3212,17 +3212,17 @@ class FLEN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -3239,7 +3239,7 @@ class FLEN(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
@@ -3342,17 +3342,17 @@ class CCPM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -3457,17 +3457,17 @@ class FGCNN(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -3485,7 +3485,7 @@ class FGCNN(torch.nn.Module):
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -3595,17 +3595,17 @@ class XDeepFM(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -3713,17 +3713,17 @@ class FiBiNet(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -3734,13 +3734,13 @@ class FiBiNet(torch.nn.Module):
                                 'Pooling:average', 'Pooling:sum']
             :param sen_reduction_factor: int, default 2.
             :param sen_activation: Optional[str], default 'relu'.
-            :param sen_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param sen_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_mode: str, default 'Bilinear:field_interaction'. Field Bi-Interaction Mode. Union[
                                 'FM', 'FM3D', 'FFM', 'HOFM', 'FwFM', 'FEFM', 'FvFM', 'FmFM', 'AFM',
                                 'PNN:inner_product', 'PNN:outer_product', 'PNN:both',
                                 'Bilinear:field_all', 'Bilinear:field_each', 'Bilinear:field_interaction']
             :param fbi_unit: int, default 32. length of latent_vector of fbi_weight.
-            :param fbi_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param fbi_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param fbi_hofm_order: int, default 3. Must >= 3.
             :param fbi_afm_activation: Optional[str], default 'relu'.
             :param fbi_afm_dropout: float, default 0.0.
@@ -3852,17 +3852,17 @@ class AutoInt(torch.nn.Module):
             :param inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
             :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -3873,7 +3873,7 @@ class AutoInt(torch.nn.Module):
             :param trm_mha_head_num: int, default 8. From MultiHeadAttention of Transformer.
             :param trm_mha_head_dim: int, default 32.
             :param trm_mha_if_mask: bool, default True.
-            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_residual_dropout: float, default 0.0.
         """
         super().__init__()
@@ -3981,17 +3981,17 @@ class GRU4Rec(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -4125,17 +4125,17 @@ class Caser(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -4148,7 +4148,7 @@ class Caser(torch.nn.Module):
             :param cnn_pool_size: int, default 2.
             :param cnn_activation: Optional[str], default 'tanh'.
             :param cnn_l2: float, default 0.0.
-            :param cnn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param cnn_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'relu'.
             :param dnn_if_bn: bool, default False. Batch Normalization.
@@ -4276,17 +4276,17 @@ class SASRec(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -4297,10 +4297,10 @@ class SASRec(torch.nn.Module):
             :param trm_mha_head_num: int, default 4.
             :param trm_mha_head_dim: int, default 32.
             :param trm_mha_if_mask: bool, default True.
-            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_if_ffn: bool, default True.
             :param trm_ffn_activation: Optional[str], default 'gelu'.
-            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_residual_dropout: float, default 0.0.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'relu'.
@@ -4431,17 +4431,17 @@ class BERT4Rec(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -4454,10 +4454,10 @@ class BERT4Rec(torch.nn.Module):
             :param trm_mha_head_num: int, default 4.
             :param trm_mha_head_dim: int, default 32.
             :param trm_mha_if_mask: bool, default True.
-            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_if_ffn: bool, default True.
             :param trm_ffn_activation: Optional[str], default 'gelu'.
-            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_residual_dropout: float, default 0.0.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'relu'.
@@ -4589,17 +4589,17 @@ class BST(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -4609,10 +4609,10 @@ class BST(torch.nn.Module):
             :param trm_mha_head_num: int, default 8.
             :param trm_mha_head_dim: int, default 32.
             :param trm_mha_if_mask: bool, default True.
-            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_if_ffn: bool, default True.
             :param trm_ffn_activation: Optional[str], default 'gelu'.
-            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_residual_dropout: float, default 0.0.
             :param dnn_hidden_units: Tuple[int], default (64, 32).
             :param dnn_activation: Optional[str], default 'selu'.
@@ -4735,17 +4735,17 @@ class DIN(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -4878,17 +4878,17 @@ class DIEN(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -5017,17 +5017,17 @@ class DSIN(torch.nn.Module):
             :param item_inputs_if_multivalued: bool, default False.
             :param item_inputs_if_embed_dense: bool, default False.
             :param embed_dim: int, default 32.
-            :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param embed_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
             :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
             :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
                                 'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
             :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
-                                xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
+                                he_uniform end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
 
         Task Effective Parameters:
             :param model_l1: float, default 0.0.
@@ -5038,14 +5038,14 @@ class DSIN(torch.nn.Module):
             :param session_pool_mode: str, default 'Pooling:average'. Union['Pooling:max', 'Pooling:average', 'Pooling:sum']
             :param session_size: int, default 4.
             :param session_stride: int, default 2.
-            :param bias_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param bias_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_mha_head_num: int, default 4.
             :param trm_mha_head_dim: int, default 32.
             :param trm_mha_if_mask: bool, default True.
-            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_mha_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_if_ffn: bool, default True.
             :param trm_ffn_activation: Optional[str], default 'gelu'.
-            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
+            :param trm_ffn_initializer: Optional[str], default None. When None, activation judge first, he_uniform end.
             :param trm_residual_dropout: float, default 0.0.
             :param gru_bi_mode: str, default 'Frontward+Backward'. Union['Frontward', 'Backward', 'Frontward+Backward',
                             'Frontward-Backward', 'Frontward*Backward', 'Frontward,Backward']

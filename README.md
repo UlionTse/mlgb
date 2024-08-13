@@ -132,12 +132,12 @@ get_model(feature_names, model_name='LR', task='binary', aim='ranking', lang='Te
 mlgb.get_model_help(model_name='LR', lang='torch')
 
 """
-class LR(torch.nn.modules.module.Module)
- |  LR(feature_names, task='binary', device='cpu', inputs_if_multivalued=False, inputs_if_sequential=False, inputs_if_embed_dense=False, embed_dim=32, embed_2d_dim=None, embed_initializer=None, pool_mv_mode='Pooling:average', pool_mv_axis=2, pool_mv_initializer=None, pool_seq_mode='Pooling:average', pool_seq_axis=1, pool_seq_initializer=None, model_l1=0.0, model_l2=0.0, linear_if_bias=True)
+ class LR(tf.keras.src.models.model.Model)
+ |  LR(feature_names, task='binary', seed=None, inputs_if_multivalued=False, inputs_if_sequential=False, inputs_if_embed_dense=False, embed_dim=32, embed_2d_dim=None, embed_l2=0.0, embed_initializer=None, pool_mv_mode='Pooling:average', pool_mv_axis=2, pool_mv_l2=0.0, pool_mv_initializer=None, pool_seq_mode='Pooling:average', pool_seq_axis=1, pool_seq_l2=0.0, pool_seq_initializer=None, linear_if_bias=True, linear_l1=0.0, linear_l2=0.0, linear_initializer=None)
  |  
  |  Methods defined here:
  |  
- |  __init__(self, feature_names, task='binary', device='cpu', inputs_if_multivalued=False, inputs_if_sequential=False, inputs_if_embed_dense=False, embed_dim=32, embed_2d_dim=None, embed_initializer=None, pool_mv_mode='Pooling:average', pool_mv_axis=2, pool_mv_initializer=None, pool_seq_mode='Pooling:average', pool_seq_axis=1, pool_seq_initializer=None, model_l1=0.0, model_l2=0.0, linear_if_bias=True)
+ |  __init__(self, feature_names, task='binary', seed=None, inputs_if_multivalued=False, inputs_if_sequential=False, inputs_if_embed_dense=False, embed_dim=32, embed_2d_dim=None, embed_l2=0.0, embed_initializer=None, pool_mv_mode='Pooling:average', pool_mv_axis=2, pool_mv_l2=0.0, pool_mv_initializer=None, pool_seq_mode='Pooling:average', pool_seq_axis=1, pool_seq_l2=0.0, pool_seq_initializer=None, linear_if_bias=True, linear_l1=0.0, linear_l2=0.0, linear_initializer=None)
  |      Model Name: LR(LinearOrLogisticRegression)
  |      Paper Team: Microsoft
  |      Paper Year: 2007
@@ -147,30 +147,32 @@ class LR(torch.nn.modules.module.Module)
  |      Task Inputs Parameters:
  |          :param feature_names: tuple(tuple(dict)), must. Embedding need vocabulary size and custom embed_dim of features.
  |          :param task: str, default 'binary'. Union['binary', 'regression']
- |          :param device: str, default 'cpu'.
+ |          :param seed: Optional[int], default None.
  |          :param inputs_if_multivalued: bool, default False.
  |          :param inputs_if_sequential: bool, default False.
  |          :param inputs_if_embed_dense: bool, default False.
  |          :param embed_dim: int, default 32.
  |          :param embed_2d_dim: Optional[int], default None. When None, each field has own embed_dim by feature_names.
+ |          :param embed_l2: float, default 0.0.
  |          :param embed_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
  |          :param pool_mv_mode: str, default 'Pooling:average'. Pooling mode of multivalued inputs. Union[
  |                              'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
  |          :param pool_mv_axis: int, default 2. Pooling axis of multivalued inputs.
+ |          :param pool_mv_l2: float, default 0.0. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
  |          :param pool_mv_initializer: Optional[str], default None. When None, activation judge first,
  |                              xavier_normal end. When pool_mv_mode is in ('Weighted', 'Attention'), it works.
  |          :param pool_seq_mode: str, default 'Pooling:average'. Pooling mode of sequential inputs. Union[
  |                              'Attention', 'Weighted', 'Pooling:max', 'Pooling:average', 'Pooling:sum']
  |          :param pool_seq_axis: int, default 1. Pooling axis of sequential inputs.
+ |          :param pool_seq_l2: float, default 0.0. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
  |          :param pool_seq_initializer: Optional[str], default None. When None, activation judge first,
  |                              xavier_normal end. When pool_seq_mode is in ('Weighted', 'Attention'), it works.
  |      
- |      Task Effective Parameters:
- |          :param model_l1: float, default 0.0.
- |          :param model_l2: float, default 0.0.
- |      
  |      Task Model Parameters:
  |          :param linear_if_bias: bool, default True.
+ |          :param linear_l1: float, default 0.0.
+ |          :param linear_l2: float, default 0.0.
+ |          :param linear_initializer: Optional[str], default None. When None, activation judge first, xavier_normal end.
 """
 ```
 

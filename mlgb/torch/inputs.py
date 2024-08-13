@@ -99,7 +99,7 @@ class SequentialInputsLayer(torch.nn.Module):
             self.built = True
         return
 
-    def forward(self, x):  # Tuple[numpy.ndarray, ...], tf: Tuple[Tensor, ...].
+    def forward(self, x):  # torch, tf216:Tuple[numpy.ndarray, ...], tf210: Tuple[Tensor, ...].
         self.build(x)
         dense_2d_tensor = torch.as_tensor(x[0], dtype=torch.float32, device=self.device)
         sparse_2d_tensor = torch.as_tensor(x[1], dtype=torch.int32, device=self.device)
@@ -176,7 +176,7 @@ class FeatureInputsLayer(torch.nn.Module):
             self.built = True
         return
         
-    def forward(self, x):  # Tuple[numpy.ndarray, ...], tf: Tuple[Tensor, ...].
+    def forward(self, x):
         self.build(x)
         dense_2d_tensor, embed_cate_3d_tensor, seq_3d_tensor = self.inputs_seq_fn(x)
         

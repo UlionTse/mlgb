@@ -25,7 +25,6 @@ torch模型通过自建build函数自适应输入尺寸，使得torch和tf统一
 torch模型拓展自身函数，如BN、LN等，使得torch和tf统一
 torch模型统一增加L1、L2正则
 
-
 English:
 I. Overall Framework and Model Side
 - Over 50 sorts (including sequences, multi-task), recall models, dual-language support for TensorFlow and PyTorch
@@ -50,4 +49,7 @@ III. Language Performance Side
 
 
 0.0.5
+
+
+0.0.6
 

@@ -12,7 +12,10 @@ from mlgb.utils import check_filepath
 
 
 def train_and_evaluate(model, optimizer, loss_fn, x_train, y_train, x_test, y_test,
-                       epochs=10, train_batch_size=32, test_batch_size=32, valid_ratio=0.15):
+                       epochs=10, train_batch_size=32, test_batch_size=32, valid_ratio=0.15, device=None):
+
+    if device is None:
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     train_batch_num = int(len(y_train) // train_batch_size)  # drop_last=True
     test_batch_num = int(len(y_test) // test_batch_size)  # drop_last=True
@@ -166,7 +169,7 @@ if __name__ == '__main__':
         loss_fn = torch.nn.BCELoss()
         model = train_and_evaluate(model, optimizer, loss_fn,
                                    x_train, y_train, x_test, y_test,
-                                   epochs=10, train_batch_size=32, test_batch_size=32, valid_ratio=0.15)
+                                   epochs=10, train_batch_size=32, test_batch_size=32, valid_ratio=0.15, device=device)
 
         y_pred_prob = numpy.squeeze(model(x_test).detach().cpu().numpy())
         y_pred = numpy.where(y_pred_prob >= 0.5, 1, 0)

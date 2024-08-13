@@ -8,7 +8,7 @@ import tensorflow_addons as tfa
 from sklearn.utils import compute_class_weight
 from sklearn.metrics import confusion_matrix, classification_report
 
-from mlgb import get_model, ranking_models
+from mlgb import get_model
 from mlgb.data import get_binary_label_data
 from mlgb.utils import check_filepath
 
@@ -54,7 +54,8 @@ if __name__ == '__main__':
         optimizer=tf.optimizers.Nadam(learning_rate=1e-3),
         metrics=[
             tfa.metrics.F1Score(num_classes=1, threshold=0.5, average='macro'),
-            tf.metrics.AUC(),
+            # tf.metrics.F1Score(threshold=0.5, average='macro'),
+            tf.keras.metrics.AUC(),
         ],
     )
     history = model.fit(

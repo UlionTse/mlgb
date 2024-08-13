@@ -95,8 +95,9 @@ class SequentialInputsLayer(tf.keras.layers.Layer):
         return
 
     @tf.function
-    def call(self, inputs):  # Tuple[numpy.ndarray, ...], tf: Tuple[Tensor, ...].
-        dense_2d_tensor, sparse_2d_tensor = inputs[0], inputs[1]
+    def call(self, inputs):  # torch, tf216:Tuple[numpy.ndarray, ...], tf210: Tuple[Tensor, ...].
+        dense_2d_tensor = tf.convert_to_tensor(inputs[0], dtype=tf.float32)
+        sparse_2d_tensor = tf.convert_to_tensor(inputs[1], dtype=tf.int32)
         embed_cate_2d_tensor, embed_cate_3d_tensor = self.embed_sparse_cate_fn(sparse_2d_tensor)
 
         if self.inputs_if_embed_dense and embed_cate_3d_tensor.shape.rank != 3:
@@ -112,7 +113,7 @@ class SequentialInputsLayer(tf.keras.layers.Layer):
         seq_3d_tensor = None
         if self.inputs_num in (3, 4):
             if self.inputs_if_multivalued:
-                mv_tensor = inputs[2]
+                mv_tensor = tf.convert_to_tensor(inputs[2], dtype=tf.int32)
                 _, embed_mv_4d_tensor = self.embed_sparse_mv_fn(mv_tensor)
                 mv_3d_tensor = self.pool_mv_fn(embed_mv_4d_tensor)
                 mv_2d_tensor = self.flatten_fn(mv_3d_tensor)
@@ -126,7 +127,7 @@ class SequentialInputsLayer(tf.keras.layers.Layer):
                     dense_2d_tensor = tf.concat([dense_2d_tensor, mv_2d_tensor], axis=1)
 
             if self.inputs_if_sequential:
-                seq_tensor = inputs[-1]  #
+                seq_tensor = tf.convert_to_tensor(inputs[-1], dtype=tf.int32)  #
                 _, embed_seq_4d_tensor = self.embed_sparse_seq_fn(seq_tensor)
                 seq_3d_tensor = self.pool_seq_fn(embed_seq_4d_tensor)
 
@@ -164,7 +165,7 @@ class FeatureInputsLayer(tf.keras.layers.Layer):
         return
 
     @tf.function
-    def call(self, inputs):  # Tuple[numpy.ndarray, ...], tf: Tuple[Tensor, ...].
+    def call(self, inputs):
         dense_2d_tensor, embed_cate_3d_tensor, seq_3d_tensor = self.inputs_seq_fn(inputs)
         
         if self.inputs_if_sequential:

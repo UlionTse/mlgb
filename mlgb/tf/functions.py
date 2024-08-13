@@ -182,7 +182,18 @@ class ActivationLayer(tf.keras.layers.Layer):
 
 class InitializerLayer:
     def __init__(self, initializer=None, activation=None, seed=None):
-        super().__init__()
+        """
+        Paper Team: Xavier Glorot, etc.
+        Paper Year: 2010
+        Paper Name: <Understanding the difficulty of training deep feedforward neural networks>
+        Paper Link: https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf
+
+        Paper Team: Kaiming He, etc.
+        Paper Year: 2015
+        Paper Name: <Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification>
+        Paper Link: https://arxiv.org/pdf/1502.01852.pdf
+        """
+
         self.initializer = initializer
         self.activation = activation
         self.initializer_map = {
@@ -204,13 +215,13 @@ class InitializerLayer:
             'ones': tf.keras.initializers.ones(),
         }
         self.activation_initializer_map = {
-            'relu': self.initializer_map['he_normal'],
-            'gelu': self.initializer_map['he_normal'],
-            'silu': self.initializer_map['he_normal'],
-            'prelu': self.initializer_map['he_normal'],
-            'selu': self.initializer_map['lecun_normal'],
-            'tanh': self.initializer_map['glorot_normal'],
-            'sigmoid': self.initializer_map['glorot_normal'],
+            'relu': self.initializer_map['he_uniform'],
+            'gelu': self.initializer_map['he_uniform'],
+            'silu': self.initializer_map['he_uniform'],
+            'prelu': self.initializer_map['he_uniform'],
+            'selu': self.initializer_map['he_uniform'],  # lecun_normal
+            'tanh': self.initializer_map['glorot_uniform'],
+            'sigmoid': self.initializer_map['glorot_uniform'],
             'dice': self.initializer_map['glorot_normal'],
             'squash': self.initializer_map['random_normal'],
         }
@@ -219,7 +230,7 @@ class InitializerLayer:
         if isinstance(self.initializer, (tf.initializers.Initializer, tf.keras.initializers.Initializer)):
             initializer_fn = self.initializer
         elif not (self.initializer in self.initializer_map or self.activation in self.activation_initializer_map):
-            initializer_fn = self.initializer_map['glorot_normal']
+            initializer_fn = self.initializer_map['he_uniform']  #
         elif self.initializer:
             initializer_fn = self.initializer_map[self.initializer]
         else:

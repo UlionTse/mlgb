@@ -19,6 +19,7 @@ limitations under the License.
 
 
 from mlgb.torch.configs import (
+    numpy,
     torch,
 )
 from mlgb.torch.functions import (
@@ -228,13 +229,13 @@ class EntireSpaceMultitaskModelLayer(torch.nn.Module):
         self.build(x)
         x = x.to(device=self.device) if x.device.type != self.device.type else x
 
-        x_ctr = self.dnn_fn_list[0](x)
-        x_ctr = self.task_fn_list[0](x_ctr)
-        x_cvr = self.dnn_fn_list[1](x)
-        x_cvr = self.task_fn_list[1](x_cvr)
+        outputs = []
+        for i in range(self.task_num):
+            x_i = self.dnn_fn_list[i](x)
+            x_i = self.task_fn_list[i](x_i)
+            outputs.append(x_i)
 
-        x_ctcvr = x_ctr * x_cvr
-        outputs = [x_ctr, x_ctcvr]
+        outputs = list(numpy.cumprod(outputs))  # [ctr, ctr * cvr]
         return outputs
 
 

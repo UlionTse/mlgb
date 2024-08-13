@@ -110,17 +110,27 @@ __all__ = [
 class LinearOrLogisticRegressionLayer(LinearLayer):
     def __init__(self, linear_if_bias=True, linear_l1=0.0, linear_l2=0.0, linear_initializer=None, seed=None):
         super().__init__(
-            linear_if_bias=linear_if_bias, linear_l1=linear_l1, linear_l2=linear_l2,
-            linear_initializer=linear_initializer, seed=seed,
+            linear_if_bias=linear_if_bias,
+            linear_l1=linear_l1,
+            linear_l2=linear_l2,
+            linear_initializer=linear_initializer,
+            seed=seed,
         )
 
 
 class MultiLayerPerceptronLayer(DeepNeuralNetworkLayer):
     def __init__(self, dnn_hidden_units=(64, 32), dnn_activation='tanh', dnn_dropout=0.0,
-                 dnn_if_bn=False, dnn_if_ln=False, dnn_l2=0.0, dnn_initializer=None, seed=None):
+                 dnn_if_bn=False, dnn_if_ln=False, dnn_if_bias=True, dnn_l2=0.0, dnn_initializer=None, seed=None):
         super().__init__(
-            dnn_hidden_units, dnn_activation, dnn_dropout, dnn_if_bn, dnn_if_ln,
-            dnn_l2, dnn_initializer, seed,
+            dnn_hidden_units=dnn_hidden_units,
+            dnn_activation=dnn_activation,
+            dnn_dropout=dnn_dropout,
+            dnn_if_bn=dnn_if_bn,
+            dnn_if_ln=dnn_if_ln,
+            dnn_if_bias=dnn_if_bias,
+            dnn_l2=dnn_l2,
+            dnn_initializer=dnn_initializer,
+            seed=seed,
         )
 
 
@@ -679,14 +689,6 @@ class InteractionMachineLayer(tf.keras.layers.Layer):
             activation=None,
             seed=seed,
         ).get()
-        self.order_fn_list = [
-            lambda p: p[0],
-            lambda p: (p[0] ** 2 - p[1]) / 2,
-            lambda p: (p[0] ** 3 - 3 * p[0] * p[1] + 2 * p[2]) / 6,
-            lambda p: (p[0] ** 4 - 6 * p[0] ** 2 * p[1] + 3 * p[1] ** 2 + 8 * p[0] * p[2] - 6 * p[3]) / 24,
-            lambda p: (p[0] ** 5 - 10 * p[0] ** 3 * p[1] + 20 * p[0] ** 2 * p[2] - 30 * p[0] * p[3]
-                       - 20 * p[1] * p[2] + 15 * p[0] * p[1] ** 2 + 24 * p[4]) / 120,
-        ]
         if self.im_mode == 'DeepIM':
             self.dnn_fn = DeepNeuralNetworkLayer(
                 dnn_hidden_units=dnn_hidden_units,
@@ -720,7 +722,7 @@ class InteractionMachineLayer(tf.keras.layers.Layer):
         x_3d = x_3d * self.im_weight
 
         p = self.get_x_list(x_3d, n=self.im_order)
-        x_pool = [self.order_fn_list[i](p) for i in range(self.im_order)]
+        x_pool = [self.order_fn(p, i) for i in range(self.im_order)]
         x_im = tf.concat(x_pool, axis=1)  # (b, order * e)
 
         if self.im_mode == 'DeepIM':
@@ -728,6 +730,17 @@ class InteractionMachineLayer(tf.keras.layers.Layer):
             x_dnn = self.dnn_fn(x_2d)
             x_im = tf.concat([x_im, x_dnn], axis=1)
         return x_im
+
+    def order_fn(self, p, i):
+        order_fn_list = [
+            lambda p: p[0],
+            lambda p: (p[0] ** 2 - p[1]) / 2,
+            lambda p: (p[0] ** 3 - 3 * p[0] * p[1] + 2 * p[2]) / 6,
+            lambda p: (p[0] ** 4 - 6 * p[0] ** 2 * p[1] + 3 * p[1] ** 2 + 8 * p[0] * p[2] - 6 * p[3]) / 24,
+            lambda p: (p[0] ** 5 - 10 * p[0] ** 3 * p[1] + 20 * p[0] ** 2 * p[2] - 30 * p[0] * p[3]
+                       - 20 * p[1] * p[2] + 15 * p[0] * p[1] ** 2 + 24 * p[4]) / 120,
+        ]
+        return order_fn_list[i](p)
 
     def get_x_list(self, x, n):
         x = tf.stack([x] * n, axis=1)
