@@ -94,6 +94,7 @@ class TaskLayer(tf.keras.layers.Layer):
         )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
         if self.task_name == 'multiclass' and not self.task_multiclass_if_project:
@@ -143,6 +144,7 @@ class LinearV1Layer(tf.keras.layers.Layer):
         self.activation_fn = ActivationLayer(linear_activation)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -198,6 +200,7 @@ class LinearV2Layer(tf.keras.layers.Layer):
         ).get()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -236,6 +239,8 @@ class LinearLayer(tf.keras.layers.Layer):
         )
 
     def build(self, input_shape):
+        # tf.print('input_shape:', input_shape)
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -283,6 +288,7 @@ class DeepNeuralNetworkLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -326,6 +332,7 @@ class FeedForwardNetworkLayer(tf.keras.layers.Layer):
             self.activation_last_fn = ActivationLayer(activation=ffn_last_activation)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -394,6 +401,7 @@ class Linear3dParallelLayer(tf.keras.layers.Layer):  # vs Dense or EinsumDense w
         self.dropout_fn = Dropout(rate=linear_dropout)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -467,6 +475,7 @@ class DNN3dParallelLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -509,6 +518,7 @@ class Linear2dParallelLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -580,6 +590,7 @@ class ConvolutionLayer(tf.keras.layers.Layer):
                 )  # (b, f, e, cnn_filter_num) -> (b, f // cnn_pool_size, e, cnn_filter_num)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank not in (3, 4):
             raise MLGBError
         if self.cnn_conv_mode == 'Conv1D' and input_shape.rank != 3:
@@ -630,6 +641,7 @@ class ConvolutionalNeuralNetworkLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank not in (3, 4):
             raise MLGBError
         if self.cnn_conv_mode == 'Conv1D' and input_shape.rank != 3:
@@ -692,6 +704,7 @@ class GatedRecurrentUnitLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -737,6 +750,7 @@ class BiGatedRecurrentUnitLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -792,6 +806,7 @@ class CapsuleNetworkLayer(tf.keras.layers.Layer):
         self.mask_fn = MaskLayer(att_if_mask=True)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 

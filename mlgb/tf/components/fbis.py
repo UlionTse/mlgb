@@ -49,6 +49,7 @@ class BinaryInteractionLayer(tf.keras.layers.Layer):
         ).get()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank not in (2, 3):
             raise MLGBError
 
@@ -89,6 +90,7 @@ class HigherOrderBinaryInteractionLayer(tf.keras.layers.Layer):
         )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
         if self.fbi_hofm_order > input_shape[1]:
@@ -142,6 +144,7 @@ class FieldBinaryInteractionLayer(tf.keras.layers.Layer):
         ).get()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -215,6 +218,7 @@ class FieldProductBothInteractionLayer(tf.keras.layers.Layer):
         )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -246,6 +250,7 @@ class BilinearInteractionLayer(tf.keras.layers.Layer):
         ).get()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -325,6 +330,7 @@ class AttentionalFieldBinaryInteractionLayer(tf.keras.layers.Layer):
         self.drop_fn = Dropout(fbi_afm_dropout)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -443,6 +449,7 @@ class AllFieldBinaryInteractionLayer(tf.keras.layers.Layer):
             )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank not in (2, 3):
             raise MLGBError
         if input_shape.rank == 2 and self.fbi_mode != 'FM':
@@ -473,16 +480,20 @@ class TwoBinaryInteractionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank not in (2, 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank not in (2, 3):
             raise MLGBError
-        if input_shape[0].rank != input_shape[1].rank:
+        if input_0_shape.rank != input_1_shape.rank:
             raise MLGBError
-        if input_shape[0].rank == 3 and (input_shape[0][2] != input_shape[1][2]):  # embed_dim
+        if input_0_shape.rank == 3 and (input_0_shape[2] != input_1_shape[2]):  # embed_dim
             raise MLGBError
 
-        self.fbi_if_keepdim = True if input_shape[0].rank == 2 else False
+        self.fbi_if_keepdim = True if input_0_shape.rank == 2 else False
 
-        self.fields_i_width, self.fields_j_width = input_shape[0][1], input_shape[1][1]
+        self.fields_i_width, self.fields_j_width = input_0_shape[1], input_1_shape[1]
         self.ij_ids = numpy.array(numpy.meshgrid(range(self.fields_i_width), range(self.fields_j_width))).T.reshape(-1, 2)
         # self.ij_ids = numpy.array([[i, j] for i in range(self.fields_i_width) for j in range(self.fields_j_width)])
 
@@ -535,15 +546,19 @@ class TwoFieldBinaryInteractionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 3:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0].rank != input_shape[1].rank:
+        if input_0_shape.rank != input_1_shape.rank:
             raise MLGBError
-        if input_shape[0].rank == 3 and (input_shape[0][2] != input_shape[1][2]):
+        if input_0_shape.rank == 3 and (input_0_shape[2] != input_1_shape[2]):  # embed_dim
             raise MLGBError
 
-        self.embed_dim = input_shape[0][2]
-        self.fields_i_width, self.fields_j_width = input_shape[0][1], input_shape[1][1]
+        self.embed_dim = input_0_shape[2]
+        self.fields_i_width, self.fields_j_width = input_0_shape[1], input_1_shape[1]
         self.product_width = int(self.fields_i_width * self.fields_j_width)
         self.ij_ids = numpy.array(numpy.meshgrid(range(self.fields_i_width), range(self.fields_j_width))).T.reshape(-1, 2)
 
@@ -616,11 +631,15 @@ class TwoFieldProductBothInteractionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 3:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0].rank != input_shape[1].rank:
+        if input_0_shape.rank != input_1_shape.rank:
             raise MLGBError
-        if input_shape[0].rank == 3 and (input_shape[0][2] != input_shape[1][2]):
+        if input_0_shape.rank == 3 and (input_0_shape[2] != input_1_shape[2]):  # embed_dim
             raise MLGBError
 
         self.built = True
@@ -653,15 +672,19 @@ class TwoBilinearInteractionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 3:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0].rank != input_shape[1].rank:
+        if input_0_shape.rank != input_1_shape.rank:
             raise MLGBError
-        if input_shape[0].rank == 3 and (input_shape[0][2] != input_shape[1][2]):
+        if input_0_shape.rank == 3 and (input_0_shape[2] != input_1_shape[2]):  # embed_dim
             raise MLGBError
 
-        self.embed_dim = input_shape[0][2]
-        self.fields_i_width, self.fields_j_width = input_shape[0][1], input_shape[1][1]
+        self.embed_dim = input_0_shape[2]
+        self.fields_i_width, self.fields_j_width = input_0_shape[1], input_1_shape[1]
         self.product_width = int(self.fields_i_width * self.fields_j_width)
         self.ij_ids = numpy.array(numpy.meshgrid(range(self.fields_i_width), range(self.fields_j_width))).T.reshape(-1, 2)
 
@@ -739,15 +762,19 @@ class TwoAttentionalFieldBinaryInteractionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 3:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0].rank != input_shape[1].rank:
+        if input_0_shape.rank != input_1_shape.rank:
             raise MLGBError
-        if input_shape[0].rank == 3 and (input_shape[0][2] != input_shape[1][2]):
+        if input_0_shape.rank == 3 and (input_0_shape[2] != input_1_shape[2]):  # embed_dim
             raise MLGBError
 
-        self.embed_dim = input_shape[0][2]
-        self.fields_i_width, self.fields_j_width = input_shape[0][1], input_shape[1][1]
+        self.embed_dim = input_0_shape[2]
+        self.fields_i_width, self.fields_j_width = input_0_shape[1], input_1_shape[1]
         self.product_width = int(self.fields_i_width * self.fields_j_width)
         self.ij_ids = numpy.array(numpy.meshgrid(range(self.fields_i_width), range(self.fields_j_width))).T.reshape(-1, 2)
 
@@ -856,15 +883,19 @@ class TwoAllFieldBinaryInteractionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank not in (2, 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank not in (2, 3):
             raise MLGBError
-        if input_shape[0].rank != input_shape[1].rank:
+        if input_0_shape.rank != input_1_shape.rank:
             raise MLGBError
-        if input_shape[0].rank == 3 and (input_shape[0][2] != input_shape[1][2]):
+        if input_0_shape.rank == 3 and (input_0_shape[2] != input_1_shape[2]):  # embed_dim
             raise MLGBError
-        if input_shape[0].rank == 2 and self.fbi_mode != 'FM':
+        if input_0_shape.rank == 2 and self.fbi_mode != 'FM':
             raise MLGBError
-        if input_shape[0].rank != 2 and self.fbi_mode == 'FM':
+        if input_0_shape.rank != 2 and self.fbi_mode == 'FM':
             raise MLGBError
 
     @tf.function
@@ -912,6 +943,7 @@ class GroupedAllFieldWiseBinaryInteractionLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 

@@ -88,6 +88,7 @@ class ResidualUnitLayer(tf.keras.layers.Layer):
         self.activation_fn = ActivationLayer(activation=self.dnn_activation)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -135,6 +136,7 @@ class CrossNetworkLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -193,6 +195,7 @@ class RegulationModuleLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -240,12 +243,16 @@ class BridgeModuleLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
-        _, self.inputs_width = input_shape[0]
+        _, self.inputs_width = input_0_shape
         bdg_dnn_hidden_units = [self.inputs_width] * self.bdg_layer_num
 
         if self.bdg_mode in ('EDCN:attention_pooling', 'EDCN:concatenation'):
@@ -320,6 +327,7 @@ class CompressedInteractionNetworkLayer(tf.keras.layers.Layer):
         self.flatten_axes_fn_list = [FlattenAxesLayer(axes=[2, 3]) for _ in range(cin_interaction_num)]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -377,6 +385,7 @@ class SqueezeExcitationNetworkLayer(tf.keras.layers.Layer):
         )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -431,9 +440,13 @@ class LocalActivationUnitLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
         self.built = True
@@ -475,6 +488,7 @@ class FactorEstimatingNetworkLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -522,6 +536,7 @@ class LogarithmicTransformationLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -588,9 +603,13 @@ class MaskBlockLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 3:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
         self.built = True
@@ -604,15 +623,4 @@ class MaskBlockLayer(tf.keras.layers.Layer):
         x = x1 * x2
         x = self.ln_hid_fn(x)
         return x
-
-
-
-
-
-
-
-
-
-
-
 

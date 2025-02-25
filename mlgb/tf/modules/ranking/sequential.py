@@ -106,7 +106,12 @@ class GatedRecurrentUnit4RecommendationLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 3:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == input_shape[2].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+        input_2_shape = tf.TensorShape(input_shape[2]) if not isinstance(input_shape[2], tf.TensorShape) else input_shape[2]
+
+        if not (input_0_shape.rank == input_1_shape.rank == input_2_shape.rank == 3):
             raise MLGBError
 
         self.built = True
@@ -174,10 +179,15 @@ class ConvolutionalSequenceEmbeddingRecommendationLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 3:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == input_shape[2].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+        input_2_shape = tf.TensorShape(input_shape[2]) if not isinstance(input_shape[2], tf.TensorShape) else input_shape[2]
+
+        if not (input_0_shape.rank == input_1_shape.rank == input_2_shape.rank == 3):
             raise MLGBError
 
-        self.embed_dim = input_shape[0][2]
+        self.embed_dim = input_0_shape[2]
 
         self.h_cnn_fn = ConvolutionalNeuralNetworkLayer(
             cnn_conv_mode='Conv2D',
@@ -285,7 +295,12 @@ class Transformer4RecommendationLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 3:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == input_shape[2].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+        input_2_shape = tf.TensorShape(input_shape[2]) if not isinstance(input_shape[2], tf.TensorShape) else input_shape[2]
+
+        if not (input_0_shape.rank == input_1_shape.rank == input_2_shape.rank == 3):
             raise MLGBError
 
         self.built = True
@@ -450,9 +465,12 @@ class DeepInterestNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 3:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == input_shape[2].rank == 3):
-            raise MLGBError
-        if input_shape[1] != input_shape[2]:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+        input_2_shape = tf.TensorShape(input_shape[2]) if not isinstance(input_shape[2], tf.TensorShape) else input_shape[2]
+
+        if not (input_0_shape.rank == input_1_shape.rank == input_2_shape.rank == 3):
             raise MLGBError
 
         self.built = True
@@ -590,11 +608,16 @@ class DeepSessionInterestNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 3:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == input_shape[2].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+        input_2_shape = tf.TensorShape(input_shape[2]) if not isinstance(input_shape[2], tf.TensorShape) else input_shape[2]
+
+        if not (input_0_shape.rank == input_1_shape.rank == input_2_shape.rank == 3):
             raise MLGBError
 
         if self.dsin_if_process_session:
-            seq_length = input_shape[1][1]
+            seq_length = input_1_shape[1]
             if seq_length < self.session_size + self.session_stride * 2:
                 raise MLGBError('seq_length < self.session_size + self.session_stride * 2')
 

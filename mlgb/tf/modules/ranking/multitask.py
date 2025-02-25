@@ -81,6 +81,7 @@ class SharedBottomHardLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -123,6 +124,7 @@ class SharedBottomSoftLayer(tf.keras.layers.Layer):
         )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -177,6 +179,7 @@ class SharedBottomLayer(tf.keras.layers.Layer):
             )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -213,6 +216,7 @@ class EntireSpaceMultitaskModelLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -298,6 +302,7 @@ class MultigateMixtureOfExpertLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -389,6 +394,7 @@ class ProgressiveLayeredExtractionLayer(tf.keras.layers.Layer):
         self.flatten_fn_list = [Flatten() for _ in range(self.task_num)]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -507,9 +513,16 @@ class ParameterEmbeddingPersonalizedNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 3:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == input_shape[2].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+        input_2_shape = tf.TensorShape(input_shape[2]) if not isinstance(input_shape[2], tf.TensorShape) else input_shape[2]
+
+        if input_0_shape.rank not in (2, 3):
             raise MLGBError
-        if not (input_shape[0][2] == input_shape[1][2] == input_shape[2][2]):  # e
+        if not (input_0_shape.rank == input_1_shape.rank == input_2_shape.rank == 3):
+            raise MLGBError
+        if not (input_0_shape[2] == input_1_shape[2] == input_2_shape[2]):
             raise MLGBError
 
         self.built = True

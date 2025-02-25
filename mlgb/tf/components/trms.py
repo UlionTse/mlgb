@@ -53,12 +53,16 @@ class SimpleAttentionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank not in (2, 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank not in (2, 3):
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
-        self.scale = input_shape[0][-1] ** 0.5  #
+        self.scale = input_0_shape[-1] ** 0.5  #
         self.built = True
         return
 
@@ -102,12 +106,16 @@ class MultiHeadAttentionLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
-        _, self.fields_width, embed_dim = input_shape[1]
+        _, self.fields_width, embed_dim = input_1_shape
 
         self.qkv_input_weight_list = [
             self.add_weight(
@@ -171,6 +179,7 @@ class TransformerFeedForwardNetworkLayer(tf.keras.layers.Layer):
         self.activation_fn = ActivationLayer(activation=ffn_activation)
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -216,9 +225,13 @@ class TransformerResidualLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
         self.built = True
@@ -268,9 +281,13 @@ class TransformerLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
         self.built = True
@@ -302,19 +319,4 @@ class InteractingLayer(TransformerLayer):
             trm_if_ffn=False,
             trm_residual_dropout=trm_residual_dropout, seed=seed,
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

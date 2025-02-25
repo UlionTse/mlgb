@@ -52,28 +52,14 @@ setuptools.setup(
     ],
     keywords=['Machine Learning', 'Deep Learning', 'CTR Prediction', 'Recommender System'],
     install_requires=[
-        'numpy>=1.23.0',
-        'pandas>=1.5.0',
-        'scikit-learn>=1.3.0',
+        'numpy>=1.26.4',
+        'pandas>=1.5.3',
+        'scikit-learn>=1.6.1',
         'torch>=2.1.0',
         'tensorflow>=2.10.0',
-        # 'tensorflow-addons>=0.21.0',
     ],
     python_requires='>=3.9',
-    extras_require={'pypi': ['build>=0.10.0', 'twine>=4.0.2']},
+    extras_require={'pypi': ['build>=1.2.2', 'twine>=6.1.0']},
     zip_safe=False,
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
 

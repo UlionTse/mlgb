@@ -106,7 +106,13 @@ class NeuralCollaborativeFilteringLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 4:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == input_shape[2].rank == input_shape[3].rank == 2):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+        input_2_shape = tf.TensorShape(input_shape[2]) if not isinstance(input_shape[2], tf.TensorShape) else input_shape[2]
+        input_3_shape = tf.TensorShape(input_shape[3]) if not isinstance(input_shape[3], tf.TensorShape) else input_shape[3]
+
+        if not (input_0_shape.rank == input_1_shape.rank == input_2_shape.rank == input_3_shape == 2):
             raise MLGBError
 
         self.built = True
@@ -157,7 +163,11 @@ class MultiInterestNetworkWithDynamicRoutingLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if not (input_0_shape.rank == input_1_shape.rank == 3):
             raise MLGBError
 
         self.built = True
@@ -231,7 +241,8 @@ class UserInputs_MultiInterestNetworkWithDynamicRoutingLayer(tf.keras.layers.Lay
             seed=seed,
         )
     
-    def build(self, input_shape):  # OriginInputs
+    def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape  # OriginInputs
         if len(input_shape) not in (2, 3, 4):
             raise MLGBError
 
@@ -246,43 +257,4 @@ class UserInputs_MultiInterestNetworkWithDynamicRoutingLayer(tf.keras.layers.Lay
         if self.tower_embeds_if_l2_norm:
             x = tf.nn.l2_normalize(x, axis=1)
         return x
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -164,7 +164,11 @@ class PiecewiseLinearModelLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 2):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if not (input_0_shape.rank == input_1_shape.rank == 2):
             raise MLGBError
 
         self.built = True
@@ -211,7 +215,13 @@ class DeepLearningRecommendationModelLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 2):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else \
+        input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else \
+        input_shape[1]
+
+        if not (input_0_shape.rank == input_1_shape.rank == 2):
             raise MLGBError
 
         self.built = True
@@ -267,6 +277,7 @@ class MaskNetLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -316,6 +327,7 @@ class DeepCrossingModelLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -355,6 +367,7 @@ class DeepCrossNetworkLayer(tf.keras.layers.Layer):
         )
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -428,6 +441,7 @@ class EnhancedDeepCrossNetworkLayer(tf.keras.layers.Layer):
         ]
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -497,9 +511,13 @@ class AllFactorizationMachineLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank not in (2, 3):
+        if input_1_shape.rank not in (2, 3):
             raise MLGBError
 
         self.built = True
@@ -600,7 +618,7 @@ class FieldMatrixedFactorizationMachineLayer(AllFactorizationMachineLayer):
             raise MLGBError
 
 
-class AttentionalFactorizationMachineLayer(tf.keras.layers.Layer):
+class AttentionalFactorizationMachineLayer(AllFactorizationMachineLayer):
     def __init__(self, fbi_mode='AFM', fbi_unit=32, fbi_l2=0.0, fbi_initializer=None,
                  fbi_afm_activation='relu', fbi_afm_dropout=0.0,
                  linear_l1=0.0, linear_l2=0.0, linear_initializer=None,
@@ -626,6 +644,7 @@ class LorentzFactorizationMachineLayer(tf.keras.layers.Layer):
         ).get()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -703,6 +722,7 @@ class InteractionMachineLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -804,9 +824,13 @@ class AllInputFactorizationMachineLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -913,9 +937,13 @@ class FactorizationMachineNeuralNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank not in (2, 3):
+        if input_1_shape.rank not in (2, 3):
             raise MLGBError
 
         self.built = True
@@ -977,9 +1005,13 @@ class ProductNeuralNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -1038,9 +1070,13 @@ class ProductNetworkInNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -1086,6 +1122,7 @@ class OperationNeuralNetworkLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -1145,6 +1182,7 @@ class AdaptiveFactorizationNetworkLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -1203,9 +1241,13 @@ class NeuralFactorizationMachineLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -1253,9 +1295,13 @@ class WideDeepLearningLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank not in (2, 3):
+        if input_1_shape.rank not in (2, 3):
             raise MLGBError
 
         self.built = True
@@ -1306,9 +1352,13 @@ class DeepFactorizationMachineLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank not in (2, 3):
+        if input_1_shape.rank not in (2, 3):
             raise MLGBError
 
         self.built = True
@@ -1359,9 +1409,13 @@ class DeepFieldEmbeddedFactorizationMachineLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank not in (2, 3):
+        if input_1_shape.rank not in (2, 3):
             raise MLGBError
 
         self.built = True
@@ -1417,9 +1471,13 @@ class FieldLeveragedEmbeddingNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -1477,6 +1535,7 @@ class ConvolutionalClickPredictionModelLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
         if input_shape[1] < self.p_min:  # fields_width
@@ -1573,9 +1632,13 @@ class FeatureGenerationByConvolutionalNeuralNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -1648,9 +1711,13 @@ class ExtremeDeepFactorizationMachineLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -1711,9 +1778,13 @@ class FeatureImportanceBilinearInteractionNetworkLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if input_shape[0].rank != 2:
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 2:
             raise MLGBError
-        if input_shape[1].rank != 3:
+        if input_1_shape.rank != 3:
             raise MLGBError
 
         self.built = True
@@ -1755,9 +1826,13 @@ class AutomaticFeatureInteractionLearningLayer(tf.keras.layers.Layer):
     def build(self, input_shape):
         if len(input_shape) != 2:
             raise MLGBError
-        if not (input_shape[0].rank == input_shape[1].rank == 3):
+
+        input_0_shape = tf.TensorShape(input_shape[0]) if not isinstance(input_shape[0], tf.TensorShape) else input_shape[0]
+        input_1_shape = tf.TensorShape(input_shape[1]) if not isinstance(input_shape[1], tf.TensorShape) else input_shape[1]
+
+        if input_0_shape.rank != 3:
             raise MLGBError
-        if input_shape[0] != input_shape[1]:
+        if input_0_shape != input_1_shape:
             raise MLGBError
 
         self.built = True

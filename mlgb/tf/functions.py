@@ -82,6 +82,7 @@ class FlattenAxesLayer(tf.keras.layers.Layer):
         self.axes = axes
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 4:
             raise MLGBError
 
@@ -245,6 +246,7 @@ class OneHotLayer(tf.keras.layers.Layer):
         self.onehot_dim = onehot_dim
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -292,6 +294,7 @@ class SparseEmbeddingLayer(tf.keras.layers.Layer):
         }  # debug: save_model need str key.
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank not in (2, 3):
             raise MLGBError
 
@@ -333,6 +336,7 @@ class DenseEmbeddingLayer(tf.keras.layers.Layer):
         ).get()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 2:
             raise MLGBError
 
@@ -360,6 +364,7 @@ class PositionalEncoding(tf.keras.layers.Layer):
         self.wave_length = 1e4  # 1e4 * pi
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 3:
             raise MLGBError
 
@@ -396,6 +401,7 @@ class BiasEncoding(tf.keras.layers.Layer):
         ).get()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank < 2:
             raise MLGBError
 
@@ -443,6 +449,7 @@ class SimplePoolingLayer(tf.keras.layers.Layer):
         self.pool_axis_if_keep = pool_axis_if_keep
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank not in (2, 3, 4):
             raise MLGBError
 
@@ -490,6 +497,7 @@ class MultiValuedPoolingLayer(tf.keras.layers.Layer):
         self.flatten_fn = Flatten()
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         if input_shape.rank != 4:
             raise MLGBError
 
@@ -535,6 +543,7 @@ class KMaxPoolingLayer(tf.keras.layers.Layer):
         self.axis = pool_axis
 
     def build(self, input_shape):
+        input_shape = tf.TensorShape(input_shape) if not isinstance(input_shape, tf.TensorShape) else input_shape
         self.dim = input_shape.rank
         if self.dim not in (3, 4):
             raise MLGBError
@@ -556,6 +565,7 @@ class KMaxPoolingLayer(tf.keras.layers.Layer):
     @tf.function
     def call(self, inputs, k=1):
         x = inputs
+
         if self.if_transpose:
             perm = self.perm_dim2axis_dict[str(self.dim)][str(self.axis)]
             x = tf.transpose(x, perm=perm)

@@ -1,13 +1,21 @@
 # coding=utf-8
 # author=uliontse
 
+import tensorflow as tf
+if tf.__version__ >= '2.16':
+    del tf
+    import os
+    import sys
+    os.environ["TF_USE_LEGACY_KERAS"] = '1'
+    sys.stderr.write('Using Keras2 backend.\n')  # `pip install tf-keras~=2.16`
+
 import numpy
 import pandas
 import tensorflow as tf
-import tensorflow_addons as tfa
 from sklearn.utils import compute_class_weight
 from sklearn.metrics import confusion_matrix, classification_report
 
+import mlgb
 from mlgb import get_model
 from mlgb.data import get_binary_label_data
 from mlgb.utils import check_filepath
@@ -17,6 +25,10 @@ if __name__ == '__main__':
     model_name = 'DSIN'
     lang = 'tf'
     seed = 0
+
+    print(f'mlgb version: {mlgb.__version__}')
+    print(f'tf version: {tf.__version__}')
+    print(f'model name: {model_name}')
 
     # path of save_model:
     tmp_dir = '.tmp'
@@ -28,7 +40,7 @@ if __name__ == '__main__':
     # get_data:
     two_inputs_models = ['PLM', 'GRU4Rec', 'Caser', 'SASRec', 'BERT4Rec', 'BST', 'DIN', 'DIEN', 'DSIN']
     feature_names, (x_train, y_train), (x_test, y_test) = get_binary_label_data(
-        n_samples=int(1e3),
+        n_samples=int(1e4),
         negative_class_weight=0.9,
         test_size=0.15,
         inputs_if_2_groups=True if model_name in two_inputs_models else False,
@@ -38,6 +50,9 @@ if __name__ == '__main__':
 
     class_weight = dict(enumerate(compute_class_weight(class_weight='balanced', classes=numpy.unique(y_train), y=y_train)))
     print(f'class_weight: {class_weight}')
+
+    # y_train = numpy.expand_dims(y_train, axis=-1)
+    # y_test = numpy.expand_dims(y_test, axis=-1)
 
     # train and evaluate:
     model = get_model(
@@ -53,9 +68,9 @@ if __name__ == '__main__':
         loss=tf.losses.BinaryCrossentropy(),
         optimizer=tf.optimizers.Nadam(learning_rate=1e-3),
         metrics=[
-            tfa.metrics.F1Score(num_classes=1, threshold=0.5, average='macro'),
-            # tf.metrics.F1Score(threshold=0.5, average='macro'),
-            tf.keras.metrics.AUC(),
+            # tfa.metrics.F1Score(num_classes=1, threshold=0.5, average='macro'),  # import tensorflow_addons as tfa
+            # tf.metrics.F1Score(threshold=0.5, average='macro'),  # tf.__version__ >= '2.13'
+            tf.metrics.AUC(),
         ],
     )
     history = model.fit(
@@ -71,7 +86,7 @@ if __name__ == '__main__':
         ]
     )
 
-    print(model.summary())
+    model.summary()
     print(pandas.DataFrame(history.history))
 
     test_evaluate = model.evaluate(x=x_test, y=y_test, batch_size=32, return_dict=True)

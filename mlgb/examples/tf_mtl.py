@@ -1,13 +1,20 @@
 # coding=utf-8
 # author=uliontse
 
+import tensorflow as tf
+if tf.__version__ >= '2.16':
+    del tf
+    import os
+    import sys
+    os.environ["TF_USE_LEGACY_KERAS"] = '1'
+    sys.stderr.write('Using Keras2 backend.\n')  # `pip install tf-keras~=2.16`
+
 import numpy
 import pandas
 import tensorflow as tf
-import tensorflow_addons as tfa
 from sklearn.metrics import confusion_matrix, classification_report
 
-from mlgb import get_model, mtl_models
+from mlgb import get_model
 from mlgb.data import get_multitask_label_data
 from mlgb.utils import check_filepath
 
@@ -49,7 +56,8 @@ if __name__ == '__main__':
         loss=[tf.losses.BinaryCrossentropy(), tf.losses.BinaryCrossentropy()],
         optimizer=tf.optimizers.Nadam(learning_rate=1e-3),
         metrics=[
-            tfa.metrics.F1Score(num_classes=1, threshold=0.5, average='macro'),
+            # tfa.metrics.F1Score(num_classes=1, threshold=0.5, average='macro'),  # import tensorflow_addons as tfa
+            # tf.metrics.F1Score(threshold=0.5, average='macro'),  # tf.__version__ >= '2.13'
             tf.metrics.AUC(),
         ],
     )
@@ -62,7 +70,7 @@ if __name__ == '__main__':
         class_weight=None,
         callbacks=[
             tf.keras.callbacks.TensorBoard(log_dir=log_dir),
-            tf.keras.callbacks.EarlyStopping(monitor='val_auc', patience=10, min_delta=1e-3),
+            tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, min_delta=1e-3),
         ]
     )
 
