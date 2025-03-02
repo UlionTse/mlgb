@@ -2,12 +2,14 @@
 # author=uliontse
 
 import tensorflow as tf
-if tf.__version__ >= '2.16':
+import packaging.version as pkg_version
+if pkg_version.parse(tf.__version__) >= pkg_version.parse('2.16.0'):
     del tf
+    del pkg_version
     import os
     import sys
     os.environ["TF_USE_LEGACY_KERAS"] = '1'
-    sys.stderr.write('Using Keras2 backend.\n')  # `pip install tf-keras~=2.16`
+    sys.stderr.write('Using Keras2 backend.\n')  # `pip install tf-keras`
 
 import numpy
 import pandas
